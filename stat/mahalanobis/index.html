@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mahalanobis distance  | Ben&#39;s blog</title>
+  <meta name="description" content="getting better 'Mahalanobis distance'read this article.">
+  <meta property="og:title" content="Mahalanobis distance">
+  
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2020-02-01">
+  
+  <meta property="og:description" content="getting better 'Mahalanobis distance'read this article.">
+  <meta property="og:url" content="https://looongtail.github.io/stat/mahalanobis/">
+  <meta property="og:site_name" content="Ben&#39;s blog">
+  
+  <meta property="og:image" content="https://looongtail.github.io/images/thumbnail.png">
+  
+  
+  <meta property="og:tags" content="mahalanobis">
+  
+  <meta property="og:tags" content="anomaly detection">
+  
+  <meta property="og:tags" content="stat">
+  
+  <meta property="og:tags" content="statistics">
+  
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://looongtail.github.io/stat/mahalanobis/">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/agate.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-XXXXXXXX-X');
+  </script>
+  
+  
+  <script type="text/javascript">
+  function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if (e.className === 'menu')
+      e.className = 'menu hidden';
+    else
+      e.className = 'menu';
+  }
+  </script>
+  <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <a href="/">
+        <img src="/images/logo.png" height="34px" />
+      </a>
+    </div>
+    <div class="burger">
+      <button onclick="toggle_visibility('menu')">
+        <i class="fa fa-bars" aria-hidden="true"></i> Menu
+      </button>
+    </div>
+    <div id="menu" class="menu hidden">
+      <ul>
+        <li><a href="/">#Ben&#39;s blog</a></li>
+        <li><a href="/aboutMe">#About Me</a></li>
+        <li><a href="/categories">#Categories</a></li>
+        <li><a href="/tags">#Tags</a></li>
+      </ul>
+      <input class="search" id="search-input" type="search" placeholder="Keyword" value="">
+    </div>
+  </div>
+  <div class="container">
+
+
+<div class="post">
+  <div class="post-title">
+    <a href="https://looongtail.github.io/stat/mahalanobis/">
+      <img src="/images/post-title-icon.png" />
+      <div class="post-meta">
+        <time>Saturday, Feb 1, 2020 07:14</time>
+        <h1>Mahalanobis distance</h1>
+      </div>
+    </a>
+  </div>
+  <div class="post-toc">
+    <span class="title">Table of Contents</span>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#mahalanobis-distance-">Mahalanobis distance</a></li>
+    <li><a href="#mahalanobis-distance-and-chi-square-distribution-">Mahalanobis distance and Chi-square distribution</a></li>
+    <li><a href="#the-minimum-covariance-determinant-">The Minimum Covariance Determinant</a></li>
+  </ul>
+</nav>
+  </div>
+  <section class="post-content">
+    <h2 id="mahalanobis-distance-">Mahalanobis distance</h2>
+<p>운영하고 있는 서버에 Anomaly detection을 적용하려고 알아보던 중, 접하게 된 Mahalanobis 거리에 대해 정리하려고 한다.
+1936년 인도 과학자이자 통계학자인 <a href="https://en.wikipedia.org/wiki/Prasanta_Chandra_Mahalanobis" target="_blank">Prasanta Chandra Mahalanobis</a>
+ 에 의해 처음 소개된 마할라노비스 거리는 점 P와 분포 D의 거리로, 다변량 데이터에서 각 변수의 분포와 변수간의 상관성을 고려하여 측정이 이루어진다.</p>
+<p>$$d^2 = {(x-m)^T\Sigma^{-1}(x-m)}$$</p>
+<p>$x$는 데이터, $m$은 데이터의 평균이고 $\Sigma$는 공분산 행렬이다. 즉, 일반적인 유클리디언 거리에 공분산의 역행렬을 곱해주는 식이 된다. 처음 식을 보고 공분산의 역행렬을 곱해주는 의미에 대해서 의문이 들었다. 대체 무슨 의미일까? 공분산으로 나누면 대체 무슨 일이 벌어지는 것일까? 그러던 중 <a href="https://www.youtube.com/watch?v=W-DNu8nardo" target="_blank">고려대학교 김성범 교수님이 유튜브에 올려주신 강의</a>
+를 보고 그 내용을 정리해본다.</p>
+<p>위 마할라노비스 계산식에서 $x$와 $m$을 각각 $X$, $Y$로 놓고 아래와 같이 식을 풀어보자.</p>
+<p>$$
+X = \begin{pmatrix}x_1\\\ x_2\end{pmatrix}, Y=\begin{pmatrix} y_1\\\ y_2\end{pmatrix}, \Sigma^{-1}=\begin{pmatrix} s_{11}^{-1}  &amp; s_{12}^{-1}\\\ s_{21}^{-1}  &amp; s_{22}^{-1}  \end{pmatrix}
+$$</p>
+<p>$$
+(X-Y)^T\Sigma^{-1}=\begin{pmatrix}(x_1-y_1)s_{11}^{-1} + (x_2-y_2)s_{21}^{-1} &amp; (x_1-y_1)s_{12}^{-1} + (x_2-y_2)s_{22}^{-1} \end{pmatrix}
+$$</p>
+<p>계산된 앞쪽과 뒤 $\begin{pmatrix} x_1-y_1\ x_2-y_2 \end{pmatrix}$를 곱연산을 해주면</p>
+<p>$$
+(x_1-y_1)^2s_{11}^{-1} + (x_1-y_1)(x_2-y_2)s_{21}^{-1} + (x_1-y_1)(x_2-y_2)s_{12}^{-1} + (x_2-y_2)^2s_{22}^{-1}
+$$
+이 때 $s_{12}^{-1}$과 $s_{21}^{-1}$은 같은 값이므로, 아래와 같이 정리가 가능하다.</p>
+<p>$$
+d^2=(x_1-y_1)^2s_{11}^{-1} + 2(x_1-y_1)(x_2-y_2)s_{21}^{-1} + (x_2-y_2)^2s_{22}^{-1}
+$$</p>
+<p>$y_1$과 $y_2$를 원 점$(0, 0)$으로 둔다면, 짜잔! 타원의 방정식 꼴이 되었다.</p>
+<p>$$
+d^2=x_1^2s_{11}^{-1} + 2x_1 x_2 s_{21}^{-1} + x_2^2 s_{22}^{-1}
+$$</p>
+<p>거리 $d$를 1로 두고 여러 공분산 행렬의 형태 따라 그래프가 어떻게 변화하는지 살펴보자.</p>
+<ul>
+<li>공분산 행렬이 <strong>항등행렬(Identity matrix)</strong> 일 때는 원의 방정식이 되고 이때는 유클리디언 거리와 동일하다.
+$$
+\Sigma = \Sigma^{-1} = \begin {pmatrix} 1 &amp; 0 \\\ 0 &amp; 1\end {pmatrix}   \\\<br>
+x_1^2 + x_2^2 = 1
+$$</li>
+</ul>
+<p><img src="/images/contents/stat/mahal_01.png#center30" alt=""></p>
+<ul>
+<li>동일 변량의 분산만이 존재할 때는 타원이 그려지게 된다.
+$$
+\Sigma = \begin {pmatrix} 4 &amp; 0 \\\ 0 &amp; 1\end {pmatrix}  \quad \Sigma^{-1} = \begin {pmatrix} 1/4 &amp; 0 \\\ 0 &amp; 1\end {pmatrix} \\\<br>
+\frac{1}{4}x_1^2 + x_2^2 = 1
+$$</li>
+</ul>
+<p><img src="/images/contents/stat/mahal_02.png#center30" alt=""></p>
+<ul>
+<li>동일 변량의 분산뿐만이 아니라 변수간의 공분산도 존재한다면 기울어진 형태의 타원이 된다.
+$$
+\Sigma = \begin {pmatrix} 4 &amp; \sqrt{2} \\\ \sqrt{2} &amp; 1\end {pmatrix}  \quad \Sigma^{-1} = \begin {pmatrix} 1/4 &amp; \sqrt{1/2} \\\ \sqrt{1/2} &amp; 1\end {pmatrix}   \\\<br>
+\frac{1}{2}x_1^2 + 2x_2^2 - \sqrt{2}x_1 x_2 = 1
+$$</li>
+</ul>
+<p><img src="/images/contents/stat/mahal_03.png#center30" alt=""></p>
+<p>세번째 식으로 원점과 $a(-1, 1)$, $b(2, 1)$ 두 점의 거리를 각각 구해보자.
+유클리디언 거리에서는 $d^2(a)=2, d^2(b)=5$로 당연히 a의 거리가 가깝다. 하지만 마할라노비스 거리는 $d^2(a)=2\frac{1}{2} +\sqrt{2}\approx3.91, d^2(b)=4-2\sqrt{2}\approx1.17$로 오히려 b의 거리가 a보다 가까워졌다.
+<img src="/images/contents/stat/mahal_04.png#center30" alt=""></p>
+<p>공분산의 역행렬을 곱한다는 것을 간단히 정리하자면, <strong>자신의 분산을 나눠줌으로써 각기 다른 변수들의 제각각인 scale 동기화</strong> 가 이루어지고, <strong>서로 다른 두 변수간의 공분산을 나눠줌으로써 두 변수간의 상관성을 고려</strong> 하게 된다는 의미가 된다.</p>
+<ul>
+<li>마할라노비스 계산 코드 - python
+<pre><code>import pandas as pd
+import numpy as np
+import scipy as sp
+from scipy import linalg
+
+def mahalanobis(x=None, data=None, cov=None):
+
+    x_mean = np.mean(np.array(data), axis=0)
+    try:
+        if not cov:
+            cov = np.cov(np.transpose(data))
+    except:
+        pass
+    inv_covmat = linalg.inv(cov)d
+    x_minus_mn = x - x_mean
+    D_square = np.dot(np.dot(x_minus_mn, inv_covmat), np.transpose(x_minus_mn))
+
+    return D_square
+</code></pre></li>
+</ul>
+<h2 id="mahalanobis-distance-and-chi-square-distribution-">Mahalanobis distance and Chi-square distribution</h2>
+<p>Anomaly detection을 위해 실시간으로 수집되는 다변량의 데이터와 비교할 기존 데이터 간의 마할라노비스 거리를 구해냈다. 그러면 계산된 거리가 정상 범위에 포함되는지, 아니면 그 범위를 넘어간 값인지 판별해야 한다.
+마할라노비스 거리의 제곱은 카이제곱분포를 따른다고 하는데&hellip; 사실 왜 그런지 이해가 가지 않아 아래 블로그의 도움을 받아 이해도를 높여보려 했다.<br>
+<a href="https://markusthill.github.io/mahalanbis-chi-squared/" target="_blank">https://markusthill.github.io/mahalanbis-chi-squared/</a>
+</p>
+<p>하지만 그 증명이 매우 복잡해서 보고 또 봐도 정확히 이해는 되지 않는다. 단지 공분산 행렬의 역행렬이 고유값 분해(eigen decomposition) 후에 곱연산되면서 각 변수들이 표준 정규 분포를 따르는 형태로 변환되고(Normalize) 그 제곱합이 카이제곱분포를 따르게 된다고 이해하고 넘어간다.
+$$
+d^2=\sum_{k=1}^lY_k^2\sim\chi^2 \quad (Y_k \sim N(0, \sigma_k))
+$$</p>
+<p>따라서, 자신이 가진 데이터나 domain 특성에 따라 카이제곱분포의 특정 quantile 지점까지를 정상 범위로 잡고 그 범위를 넘어가면 Anomaly로 잡아내면 된다. 이런 방식이 각 변수와 이상 유무만을 연결한 단변량 통계 분석을 이용한 이상값 산출보다 합리적이라고 생각한다.</p>
+<ul>
+<li>카이제곱 분포 경계값 계산($\alpha$=0.01, Number of Features:N) - python
+<pre><code>from scipy.stats import chi2
+chi2.ppf((1-0.01), df=N)
+</code></pre></li>
+</ul>
+<h2 id="the-minimum-covariance-determinant-">The Minimum Covariance Determinant</h2>
+<p>TBU</p>
+
+  </section>
+
+  <div class="post-meta-code">
+    <div class="desc">
+      Friendly
+      
+      <a href="mailto:lenew137@gmail.com">Ben</a>
+      
+      wrotes this article at
+      <span class="highlight">Saturday, Feb 1, 2020 07:14</span>
+      for you.
+    </div>
+    <div class="desc">
+      
+      <div class="desc">
+        <span class="fixed-desc">_Categories</span>
+        
+        
+        <a href="https://looongtail.github.io//categories/stat">#stat</a>
+        
+      </div>
+      
+      <div class="desc">
+        <span class="fixed-desc">_Tags</span>
+        
+        
+        <a href="https://looongtail.github.io/tags/mahalanobis">#mahalanobis</a>
+        
+        <a href="https://looongtail.github.io/tags/anomaly-detection">#anomaly detection</a>
+        
+        <a href="https://looongtail.github.io/tags/stat">#stat</a>
+        
+        <a href="https://looongtail.github.io/tags/statistics">#statistics</a>
+        
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="blog-comment">
+    <script src="https://utteranc.es/client.js"
+          repo="handnew04/blog-comments"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+    </script>
+  </div>
+  
+  <div class="recommend-articles">
+    Recommend these articles
+    <ul>
+      
+      
+    </ul>
+  </div>
+</div>
+
+
+
+
+<div class="go-top">
+  <a href="#" class="go-top-button">
+    <i class="fa fa-angle-double-up"></i>
+    <span>Top</span>
+  </a>
+</div>
+<footer class="footer">
+  COPYRIGHT (C) <a href="https://blog.lulab.net">DONGGEUN,BANG (LUBANG).</a><br />
+  ALL RIGHTS RESERVED.
+</footer>
+</body>
+</html>
+
+
+<div class="go-top">
+  <a href="#" class="go-top-button">
+    <i class="fa fa-angle-double-up"></i>
+    <span>Top</span>
+  </a>
+</div>
+<footer class="footer">
+  COPYRIGHT (C) <a href="https://blog.lulab.net">DONGGEUN,BANG (LUBANG).</a><br />
+  ALL RIGHTS RESERVED.
+</footer>
+</body>
+</html>
+

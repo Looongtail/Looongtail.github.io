@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Categories on Ben&#39;s blog</title>
+    <link>https://looongtail.github.io/categories/</link>
+    <description>Recent content in Categories on Ben&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>lenew137@gmail.com (Ben)</managingEditor>
+    <webMaster>lenew137@gmail.com (Ben)</webMaster>
+    <lastBuildDate>Sat, 01 Feb 2020 07:14:38 +0900</lastBuildDate>
+    
+	<atom:link href="https://looongtail.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>stat</title>
+      <link>https://looongtail.github.io/categories/stat/</link>
+      <pubDate>Sat, 01 Feb 2020 07:14:38 +0900</pubDate>
+      <author>lenew137@gmail.com (Ben)</author>
+      <guid>https://looongtail.github.io/categories/stat/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>anomaly detection on Ben&#39;s blog</title>
+    <link>https://looongtail.github.io/tags/anomaly-detection/</link>
+    <description>Recent content in anomaly detection on Ben&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language>
+    <managingEditor>lenew137@gmail.com (Ben)</managingEditor>
+    <webMaster>lenew137@gmail.com (Ben)</webMaster>
+    <lastBuildDate>Sat, 01 Feb 2020 07:14:38 +0900</lastBuildDate>
+    
+	<atom:link href="https://looongtail.github.io/tags/anomaly-detection/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Mahalanobis distance</title>
+      <link>https://looongtail.github.io/stat/mahalanobis/</link>
+      <pubDate>Sat, 01 Feb 2020 07:14:38 +0900</pubDate>
+      <author>lenew137@gmail.com (Ben)</author>
+      <guid>https://looongtail.github.io/stat/mahalanobis/</guid>
+      <description>Mahalanobis distance 운영하고 있는 서버에 Anomaly detection을 적용하려고 알아보던 중, 접하게 된 Mahalanobis 거리에 대해 정리하려고 한다. 1936년 인도 과학자이자 통계학자인 Prasanta Chandra Mahalanobis 에 의해 처음 소개된 마할라노비스 거리는 점 P와 분포 D의 거리로, 다변량 데이터에서 각 변수의 분포와 변수간의 상관성을 고려하여 측정이 이루어진다.
+$$d^2 = {(x-m)^T\Sigma^{-1}(x-m)}$$
+$x$는 데이터, $m$은 데이터의 평균이고 $\Sigma$는 공분산 행렬이다. 즉, 일반적인 유클리디언 거리에 공분산의 역행렬을 곱해주는 식이 된다. 처음 식을 보고 공분산의 역행렬을 곱해주는 의미에 대해서 의문이 들었다.</description>
+    </item>
+    
+  </channel>
+</rss>

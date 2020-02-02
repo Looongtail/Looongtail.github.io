@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="generator" content="Hugo 0.63.1" />
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ben&#39;s blog </title>
+  <meta name="description" content="getting better">
+  <meta property="og:title" content="Ben&#39;s blog">
+  
+  <meta property="og:type" content="website">
+  
+  <meta property="og:description" content="getting better">
+  <meta property="og:url" content="https://looongtail.github.io/">
+  <meta property="og:site_name" content="Ben&#39;s blog">
+  
+  <meta property="og:image" content="https://looongtail.github.io/images/thumbnail.png">
+  
+  
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://looongtail.github.io/">
+  <link rel="alternate" type="application/rss+xml" href="https://looongtail.github.io/index.xml" title="Ben's blog" />
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/agate.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-XXXXXXXX-X');
+  </script>
+  
+  
+  <script type="text/javascript">
+  function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if (e.className === 'menu')
+      e.className = 'menu hidden';
+    else
+      e.className = 'menu';
+  }
+  </script>
+  <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <a href="/">
+        <img src="/images/logo.png" height="34px" />
+      </a>
+    </div>
+    <div class="burger">
+      <button onclick="toggle_visibility('menu')">
+        <i class="fa fa-bars" aria-hidden="true"></i> Menu
+      </button>
+    </div>
+    <div id="menu" class="menu hidden">
+      <ul>
+        <li><a href="/">#Ben&#39;s blog</a></li>
+        <li><a href="/aboutMe">#About Me</a></li>
+        <li><a href="/categories">#Categories</a></li>
+        <li><a href="/tags">#Tags</a></li>
+      </ul>
+      <input class="search" id="search-input" type="search" placeholder="Keyword" value="">
+    </div>
+  </div>
+  <div class="container">
+
+
+
+  <div class="post">
+  <div class="post-title">
+    <a href="https://looongtail.github.io/stat/mahalanobis/" title="Mahalanobis distance">
+      <img src="/images/post-title-icon.png" />
+      <div class="post-meta">
+        <time>Saturday, Feb 1, 2020 07:14</time>
+        <h1>Mahalanobis distance</h1>
+      </div>
+    </a>
+  </div>
+  
+  <div>
+    Mahalanobis distance 운영하고 있는 서버에 Anomaly detection을 적용하려고 알아보던 중, 접하게 된 Mahalanobis 거리에 대해 정리하려고 한다. 1936년 인도 과학자이자 통계학자인 Prasanta Chandra Mahalanobis 에 의해 처음 소개된 마할라노비스 거리는 점 P와 분포 D의 거리로, 다변량 데이터에서 각 변수의 분포와 변수간의 상관성을 고려하여 측정이 이루어진다.
+$$d^2 = {(x-m)^T\Sigma^{-1}(x-m)}$$
+$x$는 데이터, $m$은 데이터의 평균이고 $\Sigma$는 공분산 행렬이다. 즉, 일반적인 유클리디언 거리에 공분산의 역행렬을 곱해주는 식이 된다. 처음 식을 보고 공분산의 역행렬을 곱해주는 의미에 대해서 의문이 들었다.
+    
+    <a href="/stat/mahalanobis/" class="summary-more">More</a>
+    
+  </div>
+</div>
+
+  <hr class="summary-sep" />
+
+
+<div class="paging">
+  
+  <span class="page">
+    Page 1 / 1
+  </span>
+  
+</div>
+
+
+<div class="go-top">
+  <a href="#" class="go-top-button">
+    <i class="fa fa-angle-double-up"></i>
+    <span>Top</span>
+  </a>
+</div>
+<footer class="footer">
+  COPYRIGHT (C) <a href="https://blog.lulab.net">DONGGEUN,BANG (LUBANG).</a><br />
+  ALL RIGHTS RESERVED.
+</footer>
+</body>
+</html>
+
