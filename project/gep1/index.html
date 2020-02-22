@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demand forecasting using LSTM &amp; MDN  | Ben&#39;s Bookstore</title>
+  <meta name="description" content="getting better 'Demand forecasting using LSTM &amp; MDN'read this article.">
+  <meta property="og:title" content="Demand forecasting using LSTM &amp; MDN">
+  
+  <meta property="og:type" content="article">
+  <meta property="article:published_time" content="2020-02-09">
+  
+  <meta property="og:description" content="getting better 'Demand forecasting using LSTM &amp; MDN'read this article.">
+  <meta property="og:url" content="https://looongtail.github.io/project/gep1/">
+  <meta property="og:site_name" content="Ben&#39;s Bookstore">
+  
+  <meta property="og:image" content="https://looongtail.github.io/images/thumbnail.png">
+  
+  
+  <meta property="og:tags" content="mdn">
+  
+  <meta property="og:tags" content="ar-mdn">
+  
+  <meta property="og:tags" content="lstm">
+  
+  <meta property="og:tags" content="time-series">
+  
+  <meta property="og:tags" content="demand forecasting">
+  
+  <meta property="og:tags" content="SCM">
+  
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="canonical" href="https://looongtail.github.io/project/gep1/">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/agate.min.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap">
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
+  
+  
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXXXXX-X"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-XXXXXXXX-X');
+  </script>
+  
+  
+  <script type="text/javascript">
+  function toggle_visibility(id) {
+    var e = document.getElementById(id);
+    if (e.className === 'menu')
+      e.className = 'menu hidden';
+    else
+      e.className = 'menu';
+  }
+  </script>
+  <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+</head>
+<body>
+  <div class="navbar">
+    <div class="logo">
+      <a href="/">
+        <img src="/images/logo.png" height="34px" />
+      </a>
+    </div>
+    <div class="burger">
+      <button onclick="toggle_visibility('menu')">
+        <i class="fa fa-bars" aria-hidden="true"></i> Menu
+      </button>
+    </div>
+    <div id="menu" class="menu hidden">
+      <ul>
+        <li><a href="/">#Ben&#39;s Bookstore</a></li>
+        <li><a href="/aboutMe">#About Me</a></li>
+        <li><a href="/categories">#Categories</a></li>
+        <li><a href="/tags">#Tags</a></li>
+      </ul>
+      <input class="search" id="search-input" type="search" placeholder="Keyword" value="">
+    </div>
+  </div>
+  <div class="container">
+
+
+<div class="post">
+  <div class="post-title">
+    <a href="https://looongtail.github.io/project/gep1/">
+      <img src="/images/post-title-icon.png" />
+      <div class="post-meta">
+        <time>Sunday, Feb 9, 2020 22:46</time>
+        <h1>Demand forecasting using LSTM &amp; MDN</h1>
+      </div>
+    </a>
+  </div>
+  <div class="post-toc">
+    <span class="title">Table of Contents</span>
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#배경설명-">배경설명</a>
+      <ul>
+        <li><a href="#scm이란-">SCM이란?</a></li>
+        <li><a href="#where-i-was-working-">Where I was working</a></li>
+      </ul>
+    </li>
+    <li><a href="#pain-point-">Pain Point</a>
+      <ul>
+        <li><a href="#채찍-효과---bulwhip-effect-">채찍 효과 - Bulwhip effect</a></li>
+        <li><a href="#demand-accuracy-">Demand Accuracy</a></li>
+        <li><a href="#ai를-활용한-예측-">AI를 활용한 예측</a></li>
+      </ul>
+    </li>
+    <li><a href="#model-">Model</a>
+      <ul>
+        <li><a href="#ar-mdn-">AR-MDN</a></li>
+        <li><a href="#my-model-">My model</a></li>
+        <li><a href="#개발-환경-">개발 환경</a></li>
+        <li><a href="#input-features-">Input features</a></li>
+        <li><a href="#세부-모델-구성-">세부 모델 구성</a></li>
+      </ul>
+    </li>
+    <li><a href="#결론-">결론</a></li>
+  </ul>
+</nav>
+  </div>
+  <section class="post-content">
+    <h2 id="배경설명-">배경설명</h2>
+<p>2018년 회사 프로그램 중 하나인 Global exchange program을 통해 미국 San Jose에 있는 연구소에 파견을 가 진행했던 프로젝트인 LSTM기반의 Sell-in Forecast Model 구축기이다.</p>
+<h3 id="scm이란-">SCM이란?</h3>
+<p>Supply Chain Management는 규모가 어느 정도 있는 제조 회사에서 모두 적용하고 있는 경영 기법이다. 쉽게 end-point인 Customer와 또 다른 end-point인 자재 supplier 사이의 모든 주체들을 연결하여 관리하겠다라는 것이고 그 시작은 고객의 Demand가 되겠다. (물론 산업 형태에 따라 공급 중심도 가능)
+<img src="/images/contents/project/scm.png#center75" alt="">
+(이미지 출처 - <a href="https://blogs.sap.com/2019/05/27/best-supply-chain-management-softwares-and-features/">https://blogs.sap.com/2019/05/27/best-supply-chain-management-softwares-and-features/</a>)</p>
+<h3 id="where-i-was-working-">Where I was working</h3>
+<p>매주 판매처(법인, 거래선 etc.)의 미래 판매 계획을 입력 받아 Demand Priority에 따라 우선 공급 순위를 정하고 Heuristic algorythm을 이용하여 최적 판매/공급 계획을 세우게 된다. 여기서 판매란 실제 고객 최접점이 아닌 판매 법인이며 이를 Sell-in이라고 표현한다. 따라서 Sell-in forecast란 판매 법인에서 입력하는 Demand로 실제 Individual 고객의 수요가 아니란 점을 미리 밝혀둔다.
+<del>정식 과제가 아닌 하나의 추가 사례를 위한 연구였고, 당시 사내 데이터 외 다른 Source로의 접근이 매우 제한적이었기 때문에 실제 수요 예측에 필요한 시장 정보 등은 활용하지 못했다.</del></p>
+<h2 id="pain-point-">Pain Point</h2>
+<h3 id="채찍-효과---bulwhip-effect-">채찍 효과 - Bulwhip effect</h3>
+<p>고객의 수요는 매우 중요하다. 물건을 사 줄 사람이 있어야 생산을 하고 배송을 하니깐.. 문제는 이 수요가 매우 불확실하다는데 있다.
+완제품을 사 줄 고객과 최접점은 해당 물건을 판매하는 소매점인데 각 가게는 언제 물건이 팔릴지 모르니 평균 판매 수량보다 약간 많은 물량을 확보하려고 한다. 매주 평균 10개씩 판매가 되는 물건이 있다면 가게 입장에서는 기본 10개 + $\alpha$개의 안전재고 수량을 합쳐서 확보하려는 것처럼..(공급 주기나 확보의 어려움 정도 따라서 더 적을수도 더 많을수도 있다)
+소매점에서 안전재고를 고려한 수량이 도매점에서도 안전재고일까? 아니다. 도매점에서는 소매점이 원하는 수량이 수요가 되고 자신들의 안전재고 수량을 더 해서 물건 공급자에게 다시 공급 요청을 하겠지. 이런 현상이 그 가치 사슬을 타고 쭉 이어진다면 원자재 공급업체 입장에서는 실제 고객의 수요보다 더 많은 수량을 공급해야 한다. 물론 실제 수요는 정해져 있기 때문에 한주는 300 그 다음주는 100 이런식으로 그 수요의 변동이 매우 심한 상태가 될거고.. 고객의 수요로부터 그 가치 사슬이 멀어질수록 수요의 변동이 커지는 현상 그것이 바로 채찍 효과이다.
+<img src="/images/contents/project/bullwhip-effect.jpg#center75" alt="">
+(이미지 출처 - <a href="https://www.digitalistmag.com/digital-supply-networks/2019/09/09/demand-considerations-bullwhip-effect-06200530">https://www.digitalistmag.com/digital-supply-networks/2019/09/09/demand-considerations-bullwhip-effect-06200530</a>)</p>
+<h3 id="demand-accuracy-">Demand Accuracy</h3>
+<p>정확한 수요 예측은 돈과 연결된다. 예측된 수요가 실제 수요보다 많다면 팔리지 않은 물건은 재고로 남게 되고, 재고 유지로 인한 비용이 늘어날 것이다. 생산된 시기가 너무 옛날이라면 할인 판매를 해야할 수도 있다. 반대로 수요를 적게 예측했다면 고객 서비스의 하락으로 이어진다. 다른 경쟁 제품을 선택함에 따라 판매 기회를 영영 잃어버릴수도 있고 혹은 미뤄질 수도 있다. 어찌되었든간에 결국 매출에 영향이 간다는 이야기이다. 이렇게 때문에 대부분의 회사가 정확한 수요 예측을 위해서 인력과 재화를 상당히 투자하고 있다.</p>
+<h3 id="ai를-활용한-예측-">AI를 활용한 예측</h3>
+<p>다시 원래 이 글을 썼던 이유로 돌아와서 <em>왜 기업에서 수요 에측에 AI를 활용하려 하는가?</em> 에 대한 개인적인 의견을 밝힌다.</p>
+<ul>
+<li>
+<p>담당자의 개인 역량에 대한 dependency가 크다<br>
+높은 고객 서비스를 위해서 현장에서는 실제 수요보다 더 큰 수량을 요구한다. 각 현장의 요구량을 합산하여 수요를 입력하게 되어있는데 이 때 수요 입력 담당자의 개인 역량에 의존하는 경향이 크다. 각 현장 salesman들의 성향, 시장 상황 등 고려할 요소들이 많기 때문이다.</p>
+</li>
+<li>
+<p>항상 바쁘다<br>
+위에서 말한 담당자가 수요 입력만 하는건 아니다. 해당 지역과 커뮤니케이션 하고 시장 상황을 분석하고 보고 자료를 만들고.. 그 와중에 수요도 입력하는거라 업무 경감의 필요가 있다.</p>
+</li>
+<li>
+<p>사용가능한 데이터가 많아졌다<br>
+기존에는 사내 데이터만 활용이 가능할 때가 많았다. 또한 정책상 흔히 밀어내기 방식을 사용하기도 했고.. 그런데 활용 가능한 데이터가 많아지고 그것을 수집하고 이용하기에도 좋은 환경이 되었다. AI/ML에서 많은 데이터가 항상 옳다고는 할 순 없지만 부족한 것보단 좋다.</p>
+</li>
+</ul>
+<h2 id="model-">Model</h2>
+<p>구축한 Model은 2018년 인도의 Srayanta Mukherjee 등이 발표한 논문인 <a href="https://arxiv.org/pdf/1803.03800.pdf" target="_blank">AR-MDN: Associative and Recurrent Mixture Density Networks for eRetail Demand Forecasting</a>
+ 을 참조하였다.</p>
+<h3 id="ar-mdn-">AR-MDN</h3>
+<p>AR-MDN의 핵심은 다음 세가지이다.</p>
+<ol>
+<li>
+<p>Associative layer<br>
+서로 관련이 있는 변수들끼리 Fully connected layer를 먼저 생성 후 각 FC layer를 모아 전체 FC layer 생성</p>
+</li>
+<li>
+<p>Recurrent layer<br>
+LSTM 활용하여 과거 $t$ 구간동안의 데이터를 기반으로 미래 예측</p>
+</li>
+<li>
+<p>MDN layer<br>
+Output은 Mixture density layer로 생성하여 예측값의 범위($\mu, \sigma$)가 여러개 구해지도록 함
+<img src="/images/contents/project/mdn.png#center75" alt="">
+<a href="">MDN 알아보기</a>
+</p>
+</li>
+</ol>
+<h3 id="my-model-">My model</h3>
+<p>Model의 기본은 RNN 알고리즘 중 LSTM을 사용했고, 과거 $t$개 주차의 Input feature들을 받아 미래 $l$개 주차의 Sell-in수량을 예측하는 Sequence-to-sequence 로 생성하였다.</p>
+<blockquote>
+<p>유럽과 중동에 위치한 2개 법인 대상으로 냉장고, 세탁기 제품군에 속하는 약 3,000여개의 모델의 Demand 예측</p>
+</blockquote>
+<h3 id="개발-환경-">개발 환경</h3>
+<blockquote>
+<p>Python : 3.4
+Tensorflow : 1.09</p>
+</blockquote>
+<h3 id="input-features-">Input features</h3>
+<p>크게 4가지, 세부적으로 12개의 Input feature를 사용했다.</p>
+<ul>
+<li>Year, Month, Week, Week of month 등의 Time 관련 정보</li>
+<li>각 모델을 구분하고 특성을 반영하기 위한 capacity, color 등의 제품 세부 spec 정보</li>
+<li>모델별 PLC(Product Life Cycle) 정보</li>
+<li>수량 정보</li>
+</ul>
+<p>Price 정보도 가지고 있었지만 실제 시장 가격이 아닌 법인 매입가이기 때문에, 가격의 변화로 인한 수요의 변화가 크지 않다고 판단하여 입력값에서 제외하였다. <del>가격 정보를 추가한 모델이 오히려 모델 성능이 나빴다</del></p>
+<h3 id="세부-모델-구성-">세부 모델 구성</h3>
+<ol>
+<li>
+<p>전처리</p>
+<ul>
+<li>Time 관련 정보 : sin/cos 함수 이용하여 cyclic 값으로 변경
+<pre><code>def cyc_enc(df, col, max_value):
+  df[col + '_sin'] = np.sin(2 * np.pi * df[col]/max_value)
+  df[col + '_cos'] = np.cos(2 * np.pi * df[col]/max_value)
+  return df
+</code></pre></li>
+<li>PLC 정보 : Time과 비슷하지만 제품별 생산/판매가 언제 시작/종료되는지에 관한 정보로 순환값을 가지기 어려우므로 시장 진입전, 도입기, 성장기, 성숙기, 쇠퇴기 등으로 categories 처리</li>
+<li>수량 정보 : 예측해야 할 수량이 0이 가장 많고 숫자가 커질수록 그 정도가 적어지기 때문에 <strong>Log scaling</strong> 처리
+<img src="/images/contents/project/qty_hist.png#center75" alt=""></li>
+</ul>
+</li>
+<li>
+<p>Input layer<br>
+관련있는 feature들끼리 Partial FC Layer를 만드는 논문과는 달리 Vector embedding하여 사용했다. 사용한 정보가 매우 제한적인 상태에서 Associative layer나 Embedding layer나 그리 큰 성능의 차이는 없었다. 쉽게 tensorflow의 tf.nn.embedding_lookup을 활용하였다.</p>
+</li>
+<li>
+<p>Recurrent layer<br>
+과거 12주의 입력을 받아 미래 8주를 예측하는 모델이다. Sequence-to-sequence 모델이며 attention은 따로 적용하지 않았다.(특정 어느 값에 집중하여 미래를 예측하는 것이 아니기 때문에)</p>
+<pre><code>def lstm_encoder(self):
+
+    cell = rnn.BasicLSTMCell(self.hidden_dim, state_is_tuple=True)
+    cell =  rnn.DropoutWrapper(rnn.MultiRNNCell([cell] * self.num_layers, state_is_tuple=True), output_keep_prob=self.keep_prob)
+    (enc_out, state) = tf.nn.dynamic_rnn(cell, inputs=self.x, sequence_length=self.x_len, dtype=tf.float32)
+
+    decoder_init_c = Dense(self.hidden_dim, name=&quot;decoder_c&quot;, activation=tf.nn.tanh, bias_initializer=self.initializer)
+    decoder_init_h = Dense(self.hidden_dim, name=&quot;decoder_h&quot;, activation=tf.nn.tanh, bias_initializer=self.initializer)
+
+    self.init_state = LSTMStateTuple(decoder_init_c(tf.concat([s.c for s in state], 1)),
+                                     decoder_init_h(tf.concat([s.h for s in state], 1)))
+
+</code></pre></li>
+<li>
+<p>Output layer<br>
+모델별 수요를 예측하는 문제인데 정답이 0인 비율이 매우 높았다. 따라서 해당 주 수요가 0인지 0이 아닌지를 먼저 예측하고, 0이 아니라면 MDN을 통하여 수량 예측을 진행하였다.</p>
+</li>
+</ol>
+<p><img src="/images/contents/project/lstm_model.png#center100" alt=""></p>
+<ol start="5">
+<li>성능
+수요 입력 담당자와 Model예측 결과의 RMSE를 비교한 결과이다.
+<ul>
+<li>Baseline - 수량 정보만을 사용한 Model</li>
+<li>MDN - LSTM + MDN</li>
+<li>User - 수요 입력 담당자</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="center">Model</th>
+<th align="center">Country</th>
+<th align="center">RMSE : 1 ~ 12 week</th>
+<th align="center">RMSE : 4~12</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Baseline</td>
+<td align="center">A</td>
+<td align="center">113.65</td>
+<td align="center">116.55</td>
+</tr>
+<tr>
+<td align="center">Baseline</td>
+<td align="center">B</td>
+<td align="center">347.04</td>
+<td align="center">324.86</td>
+</tr>
+<tr>
+<td align="center">Baseline</td>
+<td align="center">Total</td>
+<td align="center">230.35</td>
+<td align="center">229.71</td>
+</tr>
+<tr>
+<td align="center">MDN</td>
+<td align="center">A</td>
+<td align="center">106.61</td>
+<td align="center">108.98</td>
+</tr>
+<tr>
+<td align="center">MDN</td>
+<td align="center">B</td>
+<td align="center">201.44</td>
+<td align="center">210.36</td>
+</tr>
+<tr>
+<td align="center">MDN</td>
+<td align="center">Total</td>
+<td align="center">154.03</td>
+<td align="center">159.67</td>
+</tr>
+<tr>
+<td align="center">User</td>
+<td align="center">A</td>
+<td align="center">90.91</td>
+<td align="center">86.43</td>
+</tr>
+<tr>
+<td align="center">User</td>
+<td align="center">B</td>
+<td align="center">234.42</td>
+<td align="center">216</td>
+</tr>
+<tr>
+<td align="center">User</td>
+<td align="center">Total</td>
+<td align="center">162.62</td>
+<td align="center">151.21</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+<h2 id="결론-">결론</h2>
+<p>각 법인에서 수요 입력 담당자와 비교해서 일부 더 나은 성능을 보이기도 하였으나, 사용 가능한 데이터가 매우 적고 실제 시장 수요가 아니라는 점에서 한계가 분명 존재하였다. 지도 학습에서 쓰이는 과거의 수요 정보는 생산 공장의 제약, 선적의 제약 등으로 인해 진짜 예측을 위한 정보를 담고 있는 것인지 의문이 들기도 했고..
+하지만, 회사의 정식 프로젝트에서 사용하지 않은 LSTM 알고리즘을 활용하여 모델링하고, 그 한계와 가능성을 보았다는데 의의를 두고 싶다. 또한 회사 실 데이터를 이용해서 진행한 내 첫번째 AI 모델이기도 하고!</p>
+<ul>
+<li>Actual filed의 첫 AI 모델</li>
+<li>딥러닝의 가능성과 한계
+<ul>
+<li>블랙박스 영역의 설명 필요 - 실 업무에서 사용이 가능할까?</li>
+<li>시장 데이터가 없음에도 불구하고 일부 뛰어난 성능</li>
+</ul>
+</li>
+<li>딥러닝 적용을 위해서는 현재 수집하는 데이터의 확장과 다변화 필요</li>
+</ul>
+
+  </section>
+
+  <div class="post-meta-code">
+    <div class="desc">
+      Friendly
+      
+      <a href="mailto:lenew137@gmail.com">Ben</a>
+      
+      wrotes this article at
+      <span class="highlight">Sunday, Feb 9, 2020 22:46</span>
+      for you.
+    </div>
+    <div class="desc">
+      
+      <div class="desc">
+        <span class="fixed-desc">_Categories</span>
+        
+        
+        <a href="https://looongtail.github.io//categories/project">#project</a>
+        
+      </div>
+      
+      <div class="desc">
+        <span class="fixed-desc">_Tags</span>
+        
+        
+        <a href="https://looongtail.github.io/tags/mdn">#mdn</a>
+        
+        <a href="https://looongtail.github.io/tags/ar-mdn">#ar-mdn</a>
+        
+        <a href="https://looongtail.github.io/tags/lstm">#lstm</a>
+        
+        <a href="https://looongtail.github.io/tags/time-series">#time-series</a>
+        
+        <a href="https://looongtail.github.io/tags/demand-forecasting">#demand forecasting</a>
+        
+        <a href="https://looongtail.github.io/tags/scm">#SCM</a>
+        
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="blog-comment">
+    <script src="https://utteranc.es/client.js"
+          repo="Looongtail/blog-comments"
+          issue-term="pathname"
+          theme="github-light"
+          crossorigin="anonymous"
+          async>
+    </script>
+  </div>
+  
+  <div class="recommend-articles">
+    Recommend these articles
+    <ul>
+      
+      <li>
+        <a href="https://looongtail.github.io/stat/mahalanobis/" rel="prev">
+          <span>Mahalanobis distance</span>
+        </a>
+      </li>
+      
+      
+    </ul>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="go-top">
+  <a href="#" class="go-top-button">
+    <i class="fa fa-angle-double-up"></i>
+    <span>Top</span>
+  </a>
+</div>
+<footer class="footer">
+  COPYRIGHT (C) <a href="https://blog.lulab.net">DONGGEUN,BANG (LUBANG).</a><br />
+  ALL RIGHTS RESERVED.
+</footer>
+</body>
+</html>
+

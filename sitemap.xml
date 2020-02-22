@@ -3,17 +3,67 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://looongtail.github.io/tags/anomaly-detection/</loc>
-    <lastmod>2020-02-01T07:14:38+09:00</lastmod>
+    <loc>https://looongtail.github.io/tags/ar-mdn/</loc>
+    <lastmod>2020-02-09T22:46:38+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://looongtail.github.io/</loc>
-    <lastmod>2020-02-01T07:14:38+09:00</lastmod>
+    <lastmod>2020-02-09T22:46:38+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://looongtail.github.io/categories/</loc>
+    <lastmod>2020-02-09T22:46:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://looongtail.github.io/tags/demand-forecasting/</loc>
+    <lastmod>2020-02-09T22:46:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://looongtail.github.io/project/gep1/</loc>
+    <lastmod>2020-02-09T22:46:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://looongtail.github.io/tags/lstm/</loc>
+    <lastmod>2020-02-09T22:46:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://looongtail.github.io/tags/mdn/</loc>
+    <lastmod>2020-02-09T22:46:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://looongtail.github.io/categories/project/</loc>
+    <lastmod>2020-02-09T22:46:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://looongtail.github.io/project/</loc>
+    <lastmod>2020-02-09T22:46:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://looongtail.github.io/tags/scm/</loc>
+    <lastmod>2020-02-09T22:46:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://looongtail.github.io/tags/</loc>
+    <lastmod>2020-02-09T22:46:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://looongtail.github.io/tags/time-series/</loc>
+    <lastmod>2020-02-09T22:46:38+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://looongtail.github.io/tags/anomaly-detection/</loc>
     <lastmod>2020-02-01T07:14:38+09:00</lastmod>
   </url>
   
@@ -28,12 +78,12 @@
   </url>
   
   <url>
-    <loc>https://looongtail.github.io/categories/stat/</loc>
+    <loc>https://looongtail.github.io/tags/stat/</loc>
     <lastmod>2020-02-01T07:14:38+09:00</lastmod>
   </url>
   
   <url>
-    <loc>https://looongtail.github.io/tags/stat/</loc>
+    <loc>https://looongtail.github.io/categories/stat/</loc>
     <lastmod>2020-02-01T07:14:38+09:00</lastmod>
   </url>
   
@@ -44,11 +94,6 @@
   
   <url>
     <loc>https://looongtail.github.io/stat/</loc>
-    <lastmod>2020-02-01T07:14:38+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://looongtail.github.io/tags/</loc>
     <lastmod>2020-02-01T07:14:38+09:00</lastmod>
   </url>
   

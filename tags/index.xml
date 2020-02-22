@@ -8,10 +8,64 @@
     <language>ko-KR</language>
     <managingEditor>lenew137@gmail.com (Ben)</managingEditor>
     <webMaster>lenew137@gmail.com (Ben)</webMaster>
-    <lastBuildDate>Sat, 01 Feb 2020 07:14:38 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 09 Feb 2020 22:46:38 +0900</lastBuildDate>
     
 	<atom:link href="https://looongtail.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>ar-mdn</title>
+      <link>https://looongtail.github.io/tags/ar-mdn/</link>
+      <pubDate>Sun, 09 Feb 2020 22:46:38 +0900</pubDate>
+      <author>lenew137@gmail.com (Ben)</author>
+      <guid>https://looongtail.github.io/tags/ar-mdn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>demand forecasting</title>
+      <link>https://looongtail.github.io/tags/demand-forecasting/</link>
+      <pubDate>Sun, 09 Feb 2020 22:46:38 +0900</pubDate>
+      <author>lenew137@gmail.com (Ben)</author>
+      <guid>https://looongtail.github.io/tags/demand-forecasting/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lstm</title>
+      <link>https://looongtail.github.io/tags/lstm/</link>
+      <pubDate>Sun, 09 Feb 2020 22:46:38 +0900</pubDate>
+      <author>lenew137@gmail.com (Ben)</author>
+      <guid>https://looongtail.github.io/tags/lstm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>mdn</title>
+      <link>https://looongtail.github.io/tags/mdn/</link>
+      <pubDate>Sun, 09 Feb 2020 22:46:38 +0900</pubDate>
+      <author>lenew137@gmail.com (Ben)</author>
+      <guid>https://looongtail.github.io/tags/mdn/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SCM</title>
+      <link>https://looongtail.github.io/tags/scm/</link>
+      <pubDate>Sun, 09 Feb 2020 22:46:38 +0900</pubDate>
+      <author>lenew137@gmail.com (Ben)</author>
+      <guid>https://looongtail.github.io/tags/scm/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>time-series</title>
+      <link>https://looongtail.github.io/tags/time-series/</link>
+      <pubDate>Sun, 09 Feb 2020 22:46:38 +0900</pubDate>
+      <author>lenew137@gmail.com (Ben)</author>
+      <guid>https://looongtail.github.io/tags/time-series/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>anomaly detection</title>
