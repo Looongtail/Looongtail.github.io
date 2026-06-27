@@ -1,0 +1,62 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  isPost?: boolean;
+}
+
+const {
+  title = "Ben's Bookstore",
+  description = 'Notes on statistics, forecasting, and engineering.',
+  canonical,
+  isPost = false
+} = Astro.props;
+
+const pageTitle = title === "Ben's Bookstore" ? title : `${title} | Ben's Bookstore`;
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:site_name" content="Ben's Bookstore" />
+    <meta property="og:type" content={isPost ? 'article' : 'website'} />
+    <meta property="og:image" content="https://looongtail.github.io/images/thumbnail.png" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    {isPost && (
+      <script
+        is:inline
+        async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+      ></script>
+    )}
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="/" aria-label="Ben's Bookstore home">
+        <img src="/images/logo.png" alt="" />
+        <span>Ben's Bookstore</span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="/">Posts</a>
+        <a href="/categories/">Categories</a>
+        <a href="/tags/">Tags</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p>Built with Astro. Published on GitHub Pages.</p>
+    </footer>
+  </body>
+</html>

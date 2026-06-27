@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatDate, getPosts } from '../lib/posts';
+
+const posts = await getPosts();
+---
+
+<BaseLayout>
+  <section class="hero">
+    <p class="eyebrow">Statistics · Forecasting · Engineering</p>
+    <h1>Ben's Bookstore</h1>
+    <p class="lede">A compact archive of technical notes, revived with a modern Astro workflow.</p>
+  </section>
+
+  <section class="post-list" aria-label="Posts">
+    {posts.map((post) => (
+      <article class="post-card">
+        <div class="post-card-meta">
+          <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+          <a href={`/categories/${post.data.category.toLowerCase()}/`}>{post.data.category}</a>
+        </div>
+        <h2>
+          <a href={`/${post.data.slug}/`}>{post.data.title}</a>
+        </h2>
+        <p>{post.data.description}</p>
+        <ul class="tag-list" aria-label="Tags">
+          {post.data.tags.map((tag) => (
+            <li><a href={`/tags/${tag.toLowerCase().replaceAll(' ', '-')}/`}>{tag}</a></li>
+          ))}
+        </ul>
+      </article>
+    ))}
+  </section>
+</BaseLayout>

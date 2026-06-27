@@ -1,0 +1,39 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { formatDate } from '../lib/posts';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  return posts.map((post) => ({
+    params: { slug: post.data.slug },
+    props: { post }
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  canonical={`https://looongtail.github.io/${post.data.slug}/`}
+  isPost
+>
+  <article class="post-shell">
+    <header class="post-hero">
+      <p class="eyebrow">{post.data.category}</p>
+      <h1>{post.data.title}</h1>
+      <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+      <ul class="tag-list" aria-label="Tags">
+        {post.data.tags.map((tag: string) => (
+          <li><a href={`/tags/${tag.toLowerCase().replaceAll(' ', '-')}/`}>{tag}</a></li>
+        ))}
+      </ul>
+    </header>
+    <div class="post-content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

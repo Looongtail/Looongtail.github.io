@@ -1,0 +1,21 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getPosts } from '../../lib/posts';
+
+const posts = await getPosts();
+const categories = [...new Set(posts.map((post) => post.data.category))].sort();
+---
+
+<BaseLayout title="Categories" description="Browse posts by category.">
+  <section class="page-heading">
+    <h1>Categories</h1>
+  </section>
+  <ul class="index-list">
+    {categories.map((category) => (
+      <li>
+        <a href={`/categories/${category.toLowerCase()}/`}>{category}</a>
+        <span>{posts.filter((post) => post.data.category === category).length}</span>
+      </li>
+    ))}
+  </ul>
+</BaseLayout>
