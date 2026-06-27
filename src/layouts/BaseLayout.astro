@@ -6,6 +6,8 @@ interface Props {
   isPost?: boolean;
 }
 
+import '../styles/global.css';
+
 const {
   title = "Ben's Bookstore",
   description = 'Notes on statistics, forecasting, and engineering.',
@@ -32,7 +34,6 @@ const pageTitle = title === "Ben's Bookstore" ? title : `${title} | Ben's Bookst
     {canonical && <link rel="canonical" href={canonical} />}
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" />
-    <link rel="stylesheet" href="/src/styles/global.css" />
     {isPost && (
       <script
         is:inline
