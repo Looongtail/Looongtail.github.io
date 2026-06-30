@@ -346,6 +346,16 @@ h1 {
   line-height: 1.75em;
 }
 
+.post-content pre code {
+  display: block;
+  padding: 0;
+  background: transparent;
+  color: inherit;
+  border-radius: 0;
+  font-size: inherit;
+  line-height: inherit;
+}
+
 .post-content blockquote {
   margin: 24px 0;
   padding-left: 10px;
