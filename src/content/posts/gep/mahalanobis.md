@@ -1,4 +1,4 @@
-﻿---
+---
 title: "Mahalanobis distance"
 description: "getting better 'Mahalanobis distance'read this article."
 pubDate: "2020-02-01"
@@ -12,34 +12,34 @@ slug: "stat/mahalanobis"
 legacyUrl: "/stat/mahalanobis/"
 ---
 <h2 id="mahalanobis-distance-">Mahalanobis distance</h2>
-<p>?댁쁺?섍퀬 ?덈뒗 ?쒕쾭??Anomaly detection???곸슜?섎젮怨??뚯븘蹂대뜕 以? ?묓븯寃???Mahalanobis 嫄곕━??????뺣━?섎젮怨??쒕떎.
-1936???몃룄 怨쇳븰?먯씠???듦퀎?숈옄??<a href="https://en.wikipedia.org/wiki/Prasanta_Chandra_Mahalanobis" target="_blank">Prasanta Chandra Mahalanobis</a>
- ???섑빐 泥섏쓬 ?뚭컻??留덊븷?쇰끂鍮꾩뒪 嫄곕━????P? 遺꾪룷 D??嫄곕━濡? ?ㅻ????곗씠?곗뿉??媛?蹂?섏쓽 遺꾪룷? 蹂?섍컙???곴??깆쓣 怨좊젮?섏뿬 痢≪젙???대（?댁쭊??</p>
+<p>운영하고 있는 서버에 Anomaly detection을 적용하려고 알아보던 중, 접하게 된 Mahalanobis 거리에 대해 정리하려고 한다.
+1936년 인도 과학자이자 통계학자인 <a href="https://en.wikipedia.org/wiki/Prasanta_Chandra_Mahalanobis" target="_blank">Prasanta Chandra Mahalanobis</a>
+ 에 의해 처음 소개된 마할라노비스 거리는 점 P와 분포 D의 거리로, 다변량 데이터에서 각 변수의 분포와 변수간의 상관성을 고려하여 측정이 이루어진다.</p>
 <p>$$d^2 = {(x-m)^T\Sigma^{-1}(x-m)}$$</p>
-<p>$x$???곗씠?? $m$? ?곗씠?곗쓽 ?됯퇏?닿퀬 $\Sigma$??怨듬텇???됰젹?대떎. 利? ?쇰컲?곸씤 ?좏겢由щ뵒??嫄곕━??怨듬텇?곗쓽 ??뻾?ъ쓣 怨깊빐二쇰뒗 ?앹씠 ?쒕떎. 泥섏쓬 ?앹쓣 蹂닿퀬 怨듬텇?곗쓽 ??뻾?ъ쓣 怨깊빐二쇰뒗 ?섎?????댁꽌 ?섎Ц???ㅼ뿀?? ?泥?臾댁뒯 ?섎??쇨퉴? 怨듬텇?곗쑝濡??섎늻硫??泥?臾댁뒯 ?쇱씠 踰뚯뼱吏??寃껋씪源? 洹몃윭??以?<a href="https://www.youtube.com/watch?v=W-DNu8nardo" target="_blank">怨좊젮??숆탳 源?깅쾾 援먯닔?섏씠 ?좏뒠釉뚯뿉 ?щ젮二쇱떊 媛뺤쓽</a>
-瑜?蹂닿퀬 洹??댁슜???뺣━?대낯??</p>
-<p>??留덊븷?쇰끂鍮꾩뒪 怨꾩궛?앹뿉??$x$? $m$??媛곴컖 $X$, $Y$濡??볤퀬 ?꾨옒? 媛숈씠 ?앹쓣 ??대낫??</p>
+<p>$x$는 데이터, $m$은 데이터의 평균이고 $\Sigma$는 공분산 행렬이다. 즉, 일반적인 유클리디언 거리에 공분산의 역행렬을 곱해주는 식이 된다. 처음 식을 보고 공분산의 역행렬을 곱해주는 의미에 대해서 의문이 들었다. 대체 무슨 의미일까? 공분산으로 나누면 대체 무슨 일이 벌어지는 것일까? 그러던 중 <a href="https://www.youtube.com/watch?v=W-DNu8nardo" target="_blank">고려대학교 김성범 교수님이 유튜브에 올려주신 강의</a>
+를 보고 그 내용을 정리해본다.</p>
+<p>위 마할라노비스 계산식에서 $x$와 $m$을 각각 $X$, $Y$로 놓고 아래와 같이 식을 풀어보자.</p>
 <p>$$
 X = \begin{pmatrix}x_1\\\ x_2\end{pmatrix}, Y=\begin{pmatrix} y_1\\\ y_2\end{pmatrix}, \Sigma^{-1}=\begin{pmatrix} s_{11}^{-1}  & s_{12}^{-1}\\\ s_{21}^{-1}  & s_{22}^{-1}  \end{pmatrix}
 $$</p>
 <p>$$
 (X-Y)^T\Sigma^{-1}=\begin{pmatrix}(x_1-y_1)s_{11}^{-1} + (x_2-y_2)s_{21}^{-1} & (x_1-y_1)s_{12}^{-1} + (x_2-y_2)s_{22}^{-1} \end{pmatrix}
 $$</p>
-<p>怨꾩궛???욎そ怨???$\begin{pmatrix} x_1-y_1\ x_2-y_2 \end{pmatrix}$瑜?怨깆뿰?곗쓣 ?댁＜硫?/p>
+<p>계산된 앞쪽과 뒤 $\begin{pmatrix} x_1-y_1\ x_2-y_2 \end{pmatrix}$를 곱연산을 해주면</p>
 <p>$$
 (x_1-y_1)^2s_{11}^{-1} + (x_1-y_1)(x_2-y_2)s_{21}^{-1} + (x_1-y_1)(x_2-y_2)s_{12}^{-1} + (x_2-y_2)^2s_{22}^{-1}
 $$
-????$s_{12}^{-1}$怨?$s_{21}^{-1}$? 媛숈? 媛믪씠誘濡? ?꾨옒? 媛숈씠 ?뺣━媛 媛?ν븯??</p>
+이 때 $s_{12}^{-1}$과 $s_{21}^{-1}$은 같은 값이므로, 아래와 같이 정리가 가능하다.</p>
 <p>$$
 d^2=(x_1-y_1)^2s_{11}^{-1} + 2(x_1-y_1)(x_2-y_2)s_{21}^{-1} + (x_2-y_2)^2s_{22}^{-1}
 $$</p>
-<p>$y_1$怨?$y_2$瑜?????(0, 0)$?쇰줈 ?붾떎硫? 吏쒖옍! ??먯쓽 諛⑹젙??瑗댁씠 ?섏뿀??</p>
+<p>$y_1$과 $y_2$를 원 점$(0, 0)$으로 둔다면, 짜잔! 타원의 방정식 꼴이 되었다.</p>
 <p>$$
 d^2=x_1^2s_{11}^{-1} + 2x_1 x_2 s_{21}^{-1} + x_2^2 s_{22}^{-1}
 $$</p>
-<p>嫄곕━ $d$瑜?1濡??먭퀬 ?щ윭 怨듬텇???됰젹???뺥깭 ?곕씪 洹몃옒?꾧? ?대뼸寃?蹂?뷀븯?붿? ?댄렣蹂댁옄.</p>
+<p>거리 $d$를 1로 두고 여러 공분산 행렬의 형태 따라 그래프가 어떻게 변화하는지 살펴보자.</p>
 <ul>
-<li>怨듬텇???됰젹??<strong>??벑?됰젹(Identity matrix)</strong> ???뚮뒗 ?먯쓽 諛⑹젙?앹씠 ?섍퀬 ?대븣???좏겢由щ뵒??嫄곕━? ?숈씪?섎떎.
+<li>공분산 행렬이 <strong>항등행렬(Identity matrix)</strong> 일 때는 원의 방정식이 되고 이때는 유클리디언 거리와 동일하다.
 $$
 \Sigma = \Sigma^{-1} = \begin {pmatrix} 1 & 0 \\\ 0 & 1\end {pmatrix}   \\\<br>
 x_1^2 + x_2^2 = 1
@@ -47,7 +47,7 @@ $$</li>
 </ul>
 <p><img src="/images/contents/stat/mahal_01.png#center30" alt=""></p>
 <ul>
-<li>?숈씪 蹂?됱쓽 遺꾩궛留뚯씠 議댁옱???뚮뒗 ??먯씠 洹몃젮吏寃??쒕떎.
+<li>동일 변량의 분산만이 존재할 때는 타원이 그려지게 된다.
 $$
 \Sigma = \begin {pmatrix} 4 & 0 \\\ 0 & 1\end {pmatrix}  \quad \Sigma^{-1} = \begin {pmatrix} 1/4 & 0 \\\ 0 & 1\end {pmatrix} \\\<br>
 \frac{1}{4}x_1^2 + x_2^2 = 1
@@ -55,19 +55,19 @@ $$</li>
 </ul>
 <p><img src="/images/contents/stat/mahal_02.png#center30" alt=""></p>
 <ul>
-<li>?숈씪 蹂?됱쓽 遺꾩궛肉먮쭔???꾨땲??蹂?섍컙??怨듬텇?곕룄 議댁옱?쒕떎硫?湲곗슱?댁쭊 ?뺥깭????먯씠 ?쒕떎.
+<li>동일 변량의 분산뿐만이 아니라 변수간의 공분산도 존재한다면 기울어진 형태의 타원이 된다.
 $$
 \Sigma = \begin {pmatrix} 4 & \sqrt{2} \\\ \sqrt{2} & 1\end {pmatrix}  \quad \Sigma^{-1} = \begin {pmatrix} 1/4 & \sqrt{1/2} \\\ \sqrt{1/2} & 1\end {pmatrix}   \\\<br>
 \frac{1}{2}x_1^2 + 2x_2^2 - \sqrt{2}x_1 x_2 = 1
 $$</li>
 </ul>
 <p><img src="/images/contents/stat/mahal_03.png#center30" alt=""></p>
-<p>?몃쾲吏??앹쑝濡??먯젏怨?$a(-1, 1)$, $b(2, 1)$ ???먯쓽 嫄곕━瑜?媛곴컖 援ы빐蹂댁옄.
-?좏겢由щ뵒??嫄곕━?먯꽌??$d^2(a)=2, d^2(b)=5$濡??뱀뿰??a??嫄곕━媛 媛源앸떎. ?섏?留?留덊븷?쇰끂鍮꾩뒪 嫄곕━??$d^2(a)=2\frac{1}{2} +\sqrt{2}\approx3.91, d^2(b)=4-2\sqrt{2}\approx1.17$濡??ㅽ엳??b??嫄곕━媛 a蹂대떎 媛源뚯썙議뚮떎.
+<p>세번째 식으로 원점과 $a(-1, 1)$, $b(2, 1)$ 두 점의 거리를 각각 구해보자.
+유클리디언 거리에서는 $d^2(a)=2, d^2(b)=5$로 당연히 a의 거리가 가깝다. 하지만 마할라노비스 거리는 $d^2(a)=2\frac{1}{2} +\sqrt{2}\approx3.91, d^2(b)=4-2\sqrt{2}\approx1.17$로 오히려 b의 거리가 a보다 가까워졌다.
 <img src="/images/contents/stat/mahal_04.png#center30" alt=""></p>
-<p>怨듬텇?곗쓽 ??뻾?ъ쓣 怨깊븳?ㅻ뒗 寃껋쓣 媛꾨떒???뺣━?섏옄硫? <strong>?먯떊??遺꾩궛???섎닠以뚯쑝濡쒖뜥 媛곴린 ?ㅻⅨ 蹂?섎뱾???쒓컖媛곸씤 scale ?숆린??/strong> 媛 ?대（?댁?怨? <strong>?쒕줈 ?ㅻⅨ ??蹂?섍컙??怨듬텇?곗쓣 ?섎닠以뚯쑝濡쒖뜥 ??蹂?섍컙???곴??깆쓣 怨좊젮</strong> ?섍쾶 ?쒕떎???섎?媛 ?쒕떎.</p>
+<p>공분산의 역행렬을 곱한다는 것을 간단히 정리하자면, <strong>자신의 분산을 나눠줌으로써 각기 다른 변수들의 제각각인 scale 동기화</strong> 가 이루어지고, <strong>서로 다른 두 변수간의 공분산을 나눠줌으로써 두 변수간의 상관성을 고려</strong> 하게 된다는 의미가 된다.</p>
 <ul>
-<li>留덊븷?쇰끂鍮꾩뒪 怨꾩궛 肄붾뱶 - python
+<li>마할라노비스 계산 코드 - python
 <pre><code>import pandas as pd
 import numpy as np
 import scipy as sp
@@ -89,41 +89,41 @@ def mahalanobis(x=None, data=None, cov=None):
 </code></pre></li>
 </ul>
 <h2 id="mahalanobis-distance-and-chi-square-distribution-">Mahalanobis distance and Chi-square distribution</h2>
-<p>Anomaly detection???꾪빐 ?ㅼ떆媛꾩쑝濡??섏쭛?섎뒗 ?ㅻ??됱쓽 ?곗씠?곗? 鍮꾧탳??湲곗〈 ?곗씠??媛꾩쓽 留덊븷?쇰끂鍮꾩뒪 嫄곕━瑜?援ы빐?덈떎. 洹몃윭硫?怨꾩궛??嫄곕━媛 ?뺤긽 踰붿쐞???ы븿?섎뒗吏, ?꾨땲硫?洹?踰붿쐞瑜??섏뼱媛?媛믪씤吏 ?먮퀎?댁빞 ?쒕떎.
-留덊븷?쇰끂鍮꾩뒪 嫄곕━???쒓낢? 移댁씠?쒓낢遺꾪룷瑜??곕Ⅸ?ㅺ퀬 ?섎뒗?겸??ъ떎 ??洹몃윴吏 ?댄빐媛 媛吏 ?딆븘 ?꾨옒 釉붾줈洹몄쓽 ?꾩???諛쏆븘 ?댄빐?꾨? ?믪뿬蹂대젮 ?덈떎.<br>
+<p>Anomaly detection을 위해 실시간으로 수집되는 다변량의 데이터와 비교할 기존 데이터 간의 마할라노비스 거리를 구해냈다. 그러면 계산된 거리가 정상 범위에 포함되는지, 아니면 그 범위를 넘어간 값인지 판별해야 한다.
+마할라노비스 거리의 제곱은 카이제곱분포를 따른다고 하는데… 사실 왜 그런지 이해가 가지 않아 아래 블로그의 도움을 받아 이해도를 높여보려 했다.<br>
 <a href="https://markusthill.github.io/mahalanbis-chi-squared/" target="_blank">https://markusthill.github.io/mahalanbis-chi-squared/</a>
 </p>
-<p>?섏?留?洹?利앸챸??留ㅼ슦 蹂듭옟?댁꽌 蹂닿퀬 ??遊먮룄 ?뺥솗???댄빐???섏? ?딅뒗?? ?⑥? 怨듬텇???됰젹????뻾?ъ씠 怨좎쑀媛?遺꾪빐(eigen decomposition) ?꾩뿉 怨깆뿰?곕릺硫댁꽌 媛?蹂?섎뱾???쒖? ?뺢퇋 遺꾪룷瑜??곕Ⅴ???뺥깭濡?蹂?섎릺怨?Normalize) 洹??쒓낢?⑹씠 移댁씠?쒓낢遺꾪룷瑜??곕Ⅴ寃??쒕떎怨??댄빐?섍퀬 ?섏뼱媛꾨떎.
+<p>하지만 그 증명이 매우 복잡해서 보고 또 봐도 정확히 이해는 되지 않는다. 단지 공분산 행렬의 역행렬이 고유값 분해(eigen decomposition) 후에 곱연산되면서 각 변수들이 표준 정규 분포를 따르는 형태로 변환되고(Normalize) 그 제곱합이 카이제곱분포를 따르게 된다고 이해하고 넘어간다.
 $$
 d^2=\sum_{k=1}^lY_k^2\sim\chi^2 \quad (Y_k \sim N(0, \sigma_k))
 $$</p>
-<p>?곕씪?? ?먯떊??媛吏??곗씠?곕굹 domain ?뱀꽦???곕씪 移댁씠?쒓낢遺꾪룷???뱀젙 quantile 吏?먭퉴吏瑜??뺤긽 踰붿쐞濡??↔퀬 洹?踰붿쐞瑜??섏뼱媛硫?Anomaly濡??≪븘?대㈃ ?쒕떎. ?대윴 諛⑹떇??媛?蹂?섏? ?댁긽 ?좊Т留뚯쓣 ?곌껐???⑤????듦퀎 遺꾩꽍???댁슜???댁긽媛??곗텧蹂대떎 ?⑸━?곸씠?쇨퀬 ?앷컖?쒕떎.</p>
+<p>따라서, 자신이 가진 데이터나 domain 특성에 따라 카이제곱분포의 특정 quantile 지점까지를 정상 범위로 잡고 그 범위를 넘어가면 Anomaly로 잡아내면 된다. 이런 방식이 각 변수와 이상 유무만을 연결한 단변량 통계 분석을 이용한 이상값 산출보다 합리적이라고 생각한다.</p>
 <ul>
-<li>移댁씠?쒓낢 遺꾪룷 寃쎄퀎媛?怨꾩궛($\alpha$=0.01, Number of Features:N) - python
+<li>카이제곱 분포 경계값 계산($\alpha$=0.01, Number of Features:N) - python
 <pre><code>from scipy.stats import chi2
 chi2.ppf((1-0.01), df=N)
 </code></pre></li>
 </ul>
 <h2 id="minimum-covariance-determinant-">Minimum Covariance Determinant</h2>
-<p>留덊븷?쇰끂鍮꾩뒪 嫄곕━瑜??쒖슜?섏뿬 ?댁쁺?섎뜕 ?쒕쾭??Anomaly detection???쒖옉?섏??? ?곗씠?곗쓽 ?됯퇏怨?怨듬텇???곗씠?곕뒗 吏???쇱＜???숈븞??Server resource usage?먯꽌 怨꾩궛?섎뒗?? ?쒕퉬?ㅼ쓽 ?뱀꽦 ??Resource usage媛 ?쒕쾲?????뚭? ?덉뿀怨??대윴 ?곗씠?곕뱾濡??명빐???ㅼ젣 ?댁긽移섎? ?쒕?濡??≪? 紐삵븯??耳?댁뒪媛 諛쒖깮?섏??? 洹?臾몄젣瑜??닿껐?섍퀬???ㅽ꽣???섎뜕 以?李얠? <strong>Minimum Covariance Determinant</strong> 瑜??쒖슜??諛⑸쾿???뚭컻?쒕떎.</p>
+<p>마할라노비스 거리를 활용하여 운영하던 서버의 Anomaly detection을 시작하였다. 데이터의 평균과 공분산 데이터는 지난 일주일 동안의 Server resource usage에서 계산되는데, 서비스의 특성 상 Resource usage가 한번씩 튈 때가 있었고 이런 데이터들로 인해서 실제 이상치를 제대로 잡지 못하는 케이스가 발생하였다. 그 문제를 해결하고자 스터디 하던 중 찾은 <strong>Minimum Covariance Determinant</strong> 를 활용한 방법을 소개한다.</p>
 <p><a href="https://wis.kuleuven.be/stat/robust/papers/2010/wire-mcd.pdf" target="_blank">https://wis.kuleuven.be/stat/robust/papers/2010/wire-mcd.pdf</a>
 </p>
-<p>留덊븷?쇰끂鍮꾩뒪 嫄곕━瑜?援ы븷?뚮뒗 怨듬텇?곗쓣 援ы븯??寃껋씠 洹?泥ル쾲吏??④퀎?대떎. 洹몃윴????遺꾩궛? ?됯퇏怨?痢≪젙媛믪쓽 李⑥씠, 利??몄감(deviation)??怨깆쑝濡?怨꾩궛?섍린 ?뚮Ц??Outlier??留ㅼ슦 痍⑥빟???뱀꽦??吏?뚮떎.
+<p>마할라노비스 거리를 구할때는 공분산을 구하는 것이 그 첫번째 단계이다. 그런데 이 분산은 평균과 측정값의 차이, 즉 편차(deviation)의 곱으로 계산되기 때문에 Outlier에 매우 취약한 특성을 지닌다.
 $$
 Cov_{x,y}=\frac{\sum_{i=1}^{N}(x_{i}-\bar{x})(y_{i}-\bar{y})}{N-1}
 $$
 ![img]
-湲??섏쭛??吏묐떒???곗씠?곗뿉 洹밸떒?곸씤 outlier媛 ?ы븿?섏뼱 ?덈떎硫?怨듬텇??媛??먯껜媛 而ㅼ?寃??섍퀬 ?대줈 ?명빐 怨꾩궛?섎뒗 嫄곕━???ㅼ젣 怨꾩궛?섏뼱???섎뒗 嫄곕━蹂대떎 媛源앷쾶 ?섏뼱 Anomaly 媛먯?瑜??쇳븯寃??쒕떎. ?대윴 臾몄젣瑜??닿껐?섍린 ?꾪빐???됯퇏怨?遺꾩궛??援ы븷???뚯닔??Outlier?ㅼ쓣 諛곗젣?섏옄??寃껋씠 MCD???듭떖?대떎.
+기 수집된 집단의 데이터에 극단적인 outlier가 포함되어 있다면 공분산 값 자체가 커지게 되고 이로 인해 계산되는 거리는 실제 계산되어야 되는 거리보다 가깝게 되어 Anomaly 감지를 피하게 된다. 이런 문제를 해결하기 위해서 평균과 분산을 구할때 소수의 Outlier들을 배제하자는 것이 MCD의 핵심이다.
 $$
 RD(x) = \sqrt{(x-\hat{\mu}_{MCD})^t\hat{\Sigma}_{MCD}^{-1}(x-\hat{\mu}_{MCD})}
 $$</p>
-<p>???먮즺?먯꽌??MCD??諛⑸쾿濡좉낵 ?ㅻ????곗씠?곗뿉?쒖쓽 怨꾩궛 ?⑥쑉?깆쓣 ?믪씠??諛⑸쾿(Fast-MCD)????댁꽌 ?뚭컻?섏?怨??대줎?곸씤 遺遺꾩쓽 ?ㅻ챸??留롮???洹?遺遺꾩쓣 ?⑥쟾???댄빐?섍퀬 ?묒꽦?섎뒗??臾대━媛 ?덈떎. ??. 議곌툑 ??怨듬?瑜??대몮嫄멤??꾪쉶???ㅻ줈 ?④린怨??대떦 ?댁슜?????뺣━??怨좊룞?곷떂??釉붾줈洹몃? ?뚭컻?쒕떎.</p>
-<p><a href="https://godongyoung.github.io/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2019/02/11/Mahalanobis-and-MCD.html" target="_blank">[?곗씠?곕텇???뺣━] Mahalanobis嫄곕━? MCD 媛쒖씤???뺣━</a>
+<p>위 자료에서는 MCD의 방법론과 다변량 데이터에서의 계산 효율성을 높이는 방법(Fast-MCD)에 대해서 소개하였고 이론적인 부분의 설명이 많은데 그 부분을 온전히 이해하고 작성하는데 무리가 있다. 아.. 조금 더 공부를 해둘걸… 후회는 뒤로 남기고 해당 내용이 잘 정리된 고동영님의 블로그를 소개한다.</p>
+<p><a href="https://godongyoung.github.io/%EB%A8%B8%EC%8B%A0%EB%9F%AC%EB%8B%9D/2019/02/11/Mahalanobis-and-MCD.html" target="_blank">[데이터분석 정리] Mahalanobis거리와 MCD 개인적 정리</a>
 </p>
-<p>媛꾨떒?섍쾶 ?뺤쓽瑜??뚭컻?섏옄硫? ?꾩껜 ?곗씠??嫄댁닔 $n$媛? Feature dimension??$p$媛쒖씤 $n*p$ ?곗씠?곗뿉??MCD estimator 怨꾩궛???꾪븳 $h$媛쒖쓽 ?곗씠?곕? ?좏깮?쒕떎. ?대븣 ?좏깮?댁빞 ?섎뒗 $h$??媛?닔??$\frac{n+p+1}{2} \le  h \le n$ ??踰붿쐞瑜?媛吏怨? $n$? dimension $p$蹂대떎 理쒖냼 2諛곌? 留롮쑝硫??섏?留? 李⑥썝???二쇰? ?쇳븯湲??꾪빐??$n \ge 5p$瑜?異붿쿇?쒕떎. $\hat\mu_0$? 怨듬텇???됰젹??the determinant of the sample covariance matrix)??理쒖냼媛믪쓣 媛吏??$h$媛쒖쓽 ?곗씠?곕뱾???됯퇏?닿퀬, $\hat\Sigma_0$? consistency factor $c_0$瑜?怨깊빐??怨꾩궛?쒕떎.</p>
-<p>python?쇰줈 ?대? ?⑦궎吏媛 留뚮뱾?댁졇 ?덉쑝????媛숈? ?щ엺? 洹몄? 媛?몃떎 ?곕㈃ ?쒕떎. 留ㅼ슦 ?됰났???몄긽..</p>
+<p>간단하게 정의를 소개하자면, 전체 데이터 건수 $n$개, Feature dimension이 $p$개인 $n*p$ 데이터에서 MCD estimator 계산을 위한 $h$개의 데이터를 선택한다. 이때 선택해야 하는 $h$의 갯수는 $\frac{n+p+1}{2} \le  h \le n$ 의 범위를 가지고, $n$은 dimension $p$보다 최소 2배가 많으면 되지만, 차원의 저주를 피하기 위해서 $n \ge 5p$를 추천한다. $\hat\mu_0$은 공분산 행렬식(the determinant of the sample covariance matrix)이 최소값을 가지는 $h$개의 데이터들의 평균이고, $\hat\Sigma_0$은 consistency factor $c_0$를 곱해서 계산된다.</p>
+<p>python으로 이미 패키지가 만들어져 있으니 나 같은 사람은 그저 가져다 쓰면 된다. 매우 행복한 세상..</p>
 <ul>
-<li>MCD瑜??댁슜??留덊븷?쇰끂鍮꾩뒪 怨꾩궛 肄붾뱶 - python
+<li>MCD를 이용한 마할라노비스 계산 코드 - python
 <pre><code>import pandas as pd
 import numpy as np
 from sklearn.covariance import MinCovDet
@@ -139,8 +139,8 @@ def mahalanobis_mcd(x=None, data=None, cov=None):
     return D_square
 </code></pre></li>
 </ul>
-<p>洹몃윴???닿? ?쒖슜?섎젮???꾨뱶?먯꽌??RD ?곸슜???대젮?좊떎. 留ㅼ씪 媛숈? ?쒓컙??server resource usage媛 留ㅼ슦 ?믪븘吏?붾뜲 洹몃윴 peak 遺遺꾩쓣 紐⑤몢 outlier濡??몄떇?섍쾶 ??寃껋씠??</p>
+<p>그런데 내가 활용하려던 필드에서는 RD 적용이 어려웠다. 매일 같은 시간에 server resource usage가 매우 높아지는데 그런 peak 부분을 모두 outlier로 인식하게 된 것이다.</p>
 <blockquote>
-<p>?됱냼 resource ?ъ슜?됱? ??? ?곹깭瑜??좎? ??Batch ?섑뻾 ??resource??max 源뚯? ?ъ슜</p>
+<p>평소 resource 사용량은 낮은 상태를 유지 → Batch 수행 시 resource의 max 까지 사용</p>
 </blockquote>
-<p>?됯퇏?곸쑝濡?resource usage??留ㅼ슦 ??? ?곹깭?닿린 ?뚮Ц???뱀젙 ?쒖젏???믪? ?ъ슜???곗씠?곕? 諛쒖톸 ?곗씠??$h$?먯꽌 ?쒖쇅????$\hat\mu_0$怨?$\hat\Sigma_0$??援ы빐議뚮떎. ?뱀뿰?섍쾶??洹?寃곌낵濡?留ㅼ슦 stable???곹깭???곗씠???몄뿉??紐⑤몢 outlier濡?怨꾩궛?섎뒗 ?꾩긽??諛쒖깮?섏뿬 ?ㅼ젣 ?낅Т?먯꽌???ъ슜??遺덇??덈떎. ?꾨Т由?醫뗭? 諛⑸쾿?대씪??Domain怨??섏쭛 ?곗씠?곗뿉 留욎떠???쒖슜?댁빞 ?쒕떎??寃껋쓣 ?ㅼ떆 ?쒕쾲 留덉쓬???덇만 ???덉뿀??</p>
+<p>평균적으로 resource usage는 매우 낮은 상태이기 때문에 특정 시점의 높은 사용량 데이터를 발췌 데이터 $h$에서 제외한 후 $\hat\mu_0$과 $\hat\Sigma_0$이 구해졌다. 당연하게도 그 결과로 매우 stable한 상태의 데이터 외에는 모두 outlier로 계산되는 현상이 발생하여 실제 업무에서는 사용이 불가했다. 아무리 좋은 방법이라도 Domain과 수집 데이터에 맞춰서 활용해야 한다는 것을 다시 한번 마음에 새길 수 있었다.</p>
