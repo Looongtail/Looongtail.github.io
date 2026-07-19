@@ -87,20 +87,12 @@ o9은 Digital Brain을 통해 계획과 사업 의사결정을 연결하려 하�
 
 ## 출처
 
-- o9 Solutions, Digital Brain 및 AI 기반 Business Planning Software 관련 자료
-
-- Reuters, “SAP sued by US software company over trade secrets”, 2025.11.25
-
-- Kinaxis, Maestro 및 Concurrent Planning 관련 자료
-
-- Blue Yonder, Cognitive Solutions, Knowledge Graph, GenAI Agent 관련 발표
-
-- SAP, Business AI Platform, Joule, SAP Knowledge Graph, Autonomous Enterprise 관련 발표
-
-- Oracle, Fusion Cloud Applications 및 Agentic Applications 관련 발표
-
-- Microsoft, Dynamics 365 Supply Chain Management, Copilot, Azure AI 관련 자료
-
-- arXiv, “A Knowledge Graph Perspective on Supply Chain Resilience”, 2023
-
-- arXiv, “Enhancing Supply Chain Visibility with Generative AI”, 2024
+* o9 Solutions, Digital Brain 및 AI 기반 Business Planning Software 관련 자료
+* Reuters, “SAP sued by US software company over trade secrets”, 2025.11.25
+* Kinaxis, Maestro 및 Concurrent Planning 관련 자료
+* Blue Yonder, Cognitive Solutions, Knowledge Graph, GenAI Agent 관련 발표
+* SAP, Business AI Platform, Joule, SAP Knowledge Graph, Autonomous Enterprise 관련 발표
+* Oracle, Fusion Cloud Applications 및 Agentic Applications 관련 발표
+* Microsoft, Dynamics 365 Supply Chain Management, Copilot, Azure AI 관련 자료
+* arXiv, “A Knowledge Graph Perspective on Supply Chain Resilience”, 2023
+* arXiv, “Enhancing Supply Chain Visibility with Generative AI”, 2024

@@ -1,7 +1,7 @@
 ---
 title: "AI 시대, 데이터 모델링은 다시 중요해지고 있다"
 description: "그래서 데이터 모델링은 다시 중요해지고 있다. 과거의 데이터 모델링이 테이블 구조, 정규화, 성능, 관계 설계 중심이었다면, AI 시대의 데이터 모델링은 여기에 더해 “AI가 이해할 수 있는 비즈니스 의미를 어떻게 설계할 것인가”라는 문제까지 포함하게 되었다."
-pubDate: "2026-06-28"
+pubDate: "2026-06-27"
 category: "data-modeling"
 tags:
   - AI
@@ -87,19 +87,13 @@ AI가 기업의 데이터 활용 방식을 바꾸고 있는 것은 분명하다.
 기업 입장에서 지금 봐야 할 것은 “어떤 AI 도구를 도입할 것인가”만이 아니다. 우리 조직의 데이터는 AI가 이해할 수 있을 만큼 정리되어 있는지, BI와 AI가 같은 지표를 바라보고 있는지, 데이터 의미와 권한과 품질 기준이 함께 관리되고 있는지를 점검해야 한다.
 
 좋은 AI는 좋은 데이터 모델에서 시작된다.
-
 그리고 앞으로의 데이터 모델링은 사람이 데이터를 이해하기 위한 설계를 넘어, 사람과 AI가 같은 의미로 데이터를 이해하기 위한 설계가 될 것이다.
 
 ## 출처
 
-- Databricks Blog, “Unlocking semantics for AI: How Mercedes-Benz Korea built trusted ‘Talk to Data’ at scale”
-
-- Uber Engineering Blog, “QueryGPT – Natural Language to SQL Using Generative AI”
-
-- arXiv, “Text-to-SQL for Enterprise Data Analytics”
-
-- Microsoft Learn, Power BI semantic model 및 Copilot 관련 문서
-
-- dbt Docs, Semantic Layer 및 Model Contracts 관련 문서
-
-- DataHub Docs, Ask DataHub 및 AI 기반 메타데이터 활용 관련 문서
+* Databricks Blog, “Unlocking semantics for AI: How Mercedes-Benz Korea built trusted ‘Talk to Data’ at scale”
+* Uber Engineering Blog, “QueryGPT – Natural Language to SQL Using Generative AI”
+* arXiv, “Text-to-SQL for Enterprise Data Analytics”
+* Microsoft Learn, Power BI semantic model 및 Copilot 관련 문서
+* dbt Docs, Semantic Layer 및 Model Contracts 관련 문서
+* DataHub Docs, Ask DataHub 및 AI 기반 메타데이터 활용 관련 문서
