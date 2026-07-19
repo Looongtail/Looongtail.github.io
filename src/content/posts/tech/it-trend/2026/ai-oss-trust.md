@@ -28,7 +28,7 @@ slug: "tech/it-trend/2026/ai-oss-trust"
 
 ![사람이 참여하는 개발 흐름과 AI가 참여하는 개발 흐름](/images/contents/it-trend/ai-oss/development-flow.png)
 
-_그림 1. 사람이 참여하는 개발 흐름과 AI가 참여하는 개발 흐름_
+*그림 1. 사람이 참여하는 개발 흐름과 AI가 참여하는 개발 흐름*
 
 중요한 변화는 AI가 사람을 완전히 대체한다는 데 있지 않다. 코드 작성에 쓰이던 사람의 시간이 설계 판단, 검증, 보안, 품질 관리로 이동한다는 점이 더 현실적인 변화다.
 
@@ -63,7 +63,7 @@ AI가 OSS 구축에 기여하는 흐름 자체를 막기는 어렵다. 오히려
 
 ![AI 시대 OSS의 검증과 승인 흐름](/images/contents/it-trend/ai-oss/trust-structure.png)
 
-_그림 2. AI 시대 OSS의 검증과 승인 흐름_
+*그림 2. AI 시대 OSS의 검증과 승인 흐름*
 
 필자의 관점에서 앞으로 OSS 품질을 결정하는 핵심은 코드 생성 능력보다 검증 과정의 투명성이다. 어떤 변경이 AI에 의해 생성됐는지, 사람이 검토했는지, 테스트와 보안 검사를 통과했는지, 최종 승인 책임은 누구에게 있는지를 확인할 수 있어야 한다.
 
@@ -93,9 +93,15 @@ AI는 오픈소스를 더 빠르게 만들 수 있다. 그러나 더 안전하�
 ## 출처
 
 * GitHub, The Impact of AI on Developer Productivity: Evidence from GitHub Copilot.
+
 * Open Source Initiative, Open Source AI Definition 1.0, 2024.
+
 * OpenSSF 및 OpenJS Foundation, XZ Utils 사건 이후 OSS 프로젝트 대상 사회공학적 탈취 시도 경고와 메인테이너 권한 관리 권고.
+
 * Linux Foundation, OpenTofu 프로젝트 및 Terraform 라이선스 변경 관련 자료.
+
 * Linux Foundation, Valkey 프로젝트 및 Redis 라이선스 변경 관련 자료.
+
 * Lins et al., On the Critical Path to Implant Backdoors and the Effectiveness of Potential Mitigation Techniques: Early Learnings from XZ, 2024.
+
 * Pandey et al., Transforming Software Development: Evaluating the Efficiency and Challenges of GitHub Copilot in Real-World Projects, 2024.
