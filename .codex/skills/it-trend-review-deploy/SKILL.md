@@ -5,7 +5,7 @@ description: "Review a completed IT Trend post and, after explicit approval, com
 
 # It Trend Review Deploy
 
-Use this as the second stage of the IT Trend publishing chain, after `it-trend-publishing` has created or revised a specific post and its local assets. Its purpose is to independently check that deliverable, then safely publish only the approved files.
+Use this as stage 2 of the IT Trend chain, after `it-trend-publishing` has created or revised a specific post and its local assets. Its purpose is to independently check that deliverable, then safely publish only the approved files. When the user also wants a Google Doc, hand the verified public post, Markdown source, and local image paths to `it-trend-google-docs` as stage 3 after deployment succeeds.
 
 ## Handoff and review
 

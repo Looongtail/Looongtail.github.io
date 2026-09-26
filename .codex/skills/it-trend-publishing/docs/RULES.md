@@ -68,3 +68,4 @@
 - 본문은 Arial 10.5pt, 줄 간격 122%, 문단 아래 7pt를 기본으로 한다. 소제목은 Arial 16pt 굵게·짙은 남색이며, 다음 본문과 분리되지 않게 한다.
 - 출처는 본문과 같은 서식의 불릿 목록으로 쓴다.
 - 새 문서는 Google Drive 폴더 `1upNwdQ9E-tj9OiSFgNvfYo5PlR13gD7x`에 저장한다.
+- Google Drive 파일 제목은 `[yyyy-mm-dd] <기사 제목>` 형식을 사용하며, 날짜는 게시글의 `pubDate`를 ISO 형식으로 쓴다.

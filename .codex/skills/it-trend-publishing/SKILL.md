@@ -1,11 +1,11 @@
 ---
 name: it-trend-publishing
-description: "Prepare and publish Korean IT Trend articles in this Astro blog, including source-grounded editing, appropriate visual assets, and build verification. Use for drafting or finalizing posts; not for unrelated site development."
+description: "Create and finalize Korean IT Trend post files, including source-grounded editing, embedded local visual assets, and build verification. Use as the authoring stage before review/deploy; not for unrelated site development."
 ---
 
-# It Trend Publishing
+# IT Trend Authoring
 
-Create a finished, publication-ready IT Trend post from a draft, research notes, or a user-supplied shared ChatGPT conversation. The post should explain why the topic matters to enterprise IT without presenting speculation as established fact.
+Create a finished, publication-ready IT Trend post from a draft, research notes, or a user-supplied shared ChatGPT conversation. This is stage 1 of the three-stage chain: authoring → review/deploy → Google Docs upload. The post should explain why the topic matters to enterprise IT without presenting speculation as established fact.
 
 Before every writing or substantive editing task, read [docs/RULES.md](docs/RULES.md). For a new article or a major restructuring, also read [docs/TEMPLATE.md](docs/TEMPLATE.md) and adapt it to the topic rather than copying every section mechanically.
 
@@ -38,3 +38,4 @@ Add an image only when it makes a relationship or process materially clearer tha
 - Re-read the final Markdown for frontmatter validity, heading flow, claim/source alignment, Korean typography, asset paths, and links.
 - Run `pnpm build` in `codes/` after editing. Fix errors caused by the change; do not alter unrelated work or delete untracked drafts/assets.
 - Report the created or changed post and visual assets, the verification result, and any claims that still need the user's source or approval.
+- Do not commit, push, deploy, or create a Google Doc in this stage. Hand the exact post and asset paths to the next applicable stage.
