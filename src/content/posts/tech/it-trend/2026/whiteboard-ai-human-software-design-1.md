@@ -41,19 +41,15 @@ Git Diff는 파일의 어느 줄이 바뀌었는지는 정확히 보여 주지�
 
 Whiteboard의 접근은 이 순서를 바꾼다. 개별 파일에서 출발하는 대신 변경의 구조와 설명을 먼저 보고, 필요한 지점에서 실제 코드로 내려가게 한다. 이는 코드 중심 탐색을 대체한다기보다, 아키텍처와 업무 흐름이라는 새로운 진입점을 추가하는 방식이다.
 
-![AI가 생성한 코드 변경을 사람이 시각적 구조와 변경 내용으로 검토한 뒤 검증된 시스템으로 연결하는 개념도](/images/contents/it-trend/whiteboard/ai-human-review-workspace.png)
-
-*그림 1. AI 생성 결과를 사람의 구조적 검토와 기존 검증 절차로 연결하는 개념도. 생성 이미지.*
-
 ## 공통 설계 공간의 역할
 
 Whiteboard는 Claude Code나 Codex 같은 기존 에이전트를 대체하는 새로운 코딩 모델이 아니다. 사용하던 에이전트를 연결하면 에이전트가 SDK를 통해 애플리케이션 내부 Canvas에 자신의 작업을 표현하는 구조다. 개발자는 그 설명을 살펴보고, 필요한 부분을 선택해 추가 질문을 하거나 다시 그리도록 요청할 수 있다.
 
 공식 Quickstart도 이 역할을 분명히 한다. 애플리케이션을 설치하고 에이전트를 연결한 뒤, 현재 작업 브랜치를 최신 `main`과 비교해 결과를 Whiteboard에서 열도록 요청하는 흐름이다. 즉 새로운 저장소나 개발 프로세스를 강제하기보다, 기존 Git 작업과 에이전트 사용 방식 위에 설계·리뷰 공간을 더한다.
 
-![AI 에이전트의 코드 변경을 설계 Canvas로 설명하고 사람이 코드와 함께 검토한 뒤 피드백하는 반복 흐름](/images/contents/it-trend/whiteboard/agent-review-loop.png)
+![Whiteboard에서 코드 설명과 시퀀스 다이어그램을 함께 표시하는 실제 화면](/images/contents/it-trend/whiteboard/whiteboard-demo.gif)
 
-*그림 2. 에이전트의 구현·시각화와 사람의 코드 검토·피드백을 반복하는 활용 흐름. 생성 이미지.*
+*그림 1. Whiteboard의 실제 화면. 코드 설명과 시퀀스 다이어그램을 함께 표시한다. 출처: /dev/fast Whiteboard 공식 저장소, MIT License.*
 
 기술적으로 Whiteboard는 Code OSS를 포함한 데스크톱 환경을 사용한다. 다이어그램 화면을 제공하면서도 VS Code 계열의 키보드 단축키와 Language Server Protocol(LSP) 기반 코드 탐색을 함께 제공하려는 선택이다. 일반적인 다이어그램 도구에서 실제 구현을 확인하려면 별도 IDE로 이동해야 하지만, Whiteboard는 설계 표현과 코드 탐색의 거리를 줄이려 한다.
 
@@ -66,10 +62,6 @@ Whiteboard의 대표 기능은 시각화 요소에서 구현 코드로 이동하
 이 방식은 데이터 파이프라인이나 마이크로서비스처럼 관계가 복잡한 시스템에서 검토 보조 수단으로 활용할 수 있다. 데이터 소스, 변환, 적재 대상의 관계나 서비스 간 API 의존성을 먼저 살핀 뒤 구현을 확인하는 식이다. 다만 이는 기능을 바탕으로 한 적용 시나리오다. Whiteboard가 특정 업무 도메인의 구조를 자동으로 정확하게 분석한다고 해석해서는 안 된다.
 
 전체 아키텍처에서 특정 변경으로, 다시 실제 함수와 코드로 내려가는 탐색 순서는 대규모 시스템을 이해하는 방식과 잘 맞는다. Whiteboard는 이 수준 사이의 이동을 줄이려 한다. 그러나 시각화와 Diff가 실제 구현을 정확히 반영하는지 여부는 사람이 원본 코드와 테스트로 확인해야 한다.
-
-![서비스 구조, 구조화된 변경 비교, 실제 코드로 이어지는 세 수준의 검토 탐색](/images/contents/it-trend/whiteboard/architecture-diff-code-navigation.png)
-
-*그림 3. 전체 구조·변경 비교·구체 코드 사이를 오가는 검토 관점. 생성 이미지.*
 
 ## 변경 의미 중심의 리뷰 인터페이스
 
@@ -84,6 +76,10 @@ AI가 생성한 변경에는 핵심 로직뿐 아니라 보조 함수, 테스트
 AI 에이전트의 결과물은 코드만으로 완전히 설명되지 않을 때가 있다. 개발자가 API 구현을 요청했는데 에이전트가 새로운 라이브러리를 추가하거나 데이터 모델을 바꿨다면, 변경 자체와 함께 왜 그런 판단이 필요했는지도 검토해야 한다.
 
 Whiteboard의 Decision Log는 에이전트가 자신의 작업 기록을 조회하고, 요구사항과 자율적으로 내린 판단을 Whiteboard 요소에 연결하도록 만든 기능이다. 개발자는 요구사항이 어떤 방식으로 구현됐는지와 에이전트가 어떤 선택을 했는지를 같은 검토 공간에서 살필 수 있다. 기존 코드 리뷰에서 변경 이유를 작성자에게 사후 질문하던 흐름을 보완하는 시도다.
+
+![Whiteboard의 실제 리뷰 화면에서 승인·변경 요청·리뷰 종료를 선택하는 패널](/images/contents/it-trend/whiteboard/decision-panel-resting.png)
+
+*그림 2. Whiteboard의 실제 리뷰 결정 패널. 출처: /dev/fast Whiteboard 공식 저장소, MIT License.*
 
 장기 운영되는 기업 시스템에서는 결과 코드만큼 설계 판단의 맥락이 중요하다. 성능 제약, 데이터 정합성, 다른 시스템과의 의존 관계를 이해하지 못하면 이후 변경에서 같은 위험이 반복될 수 있다. 다만 현재 기능을 장기 아키텍처 의사결정 관리 시스템이나 완전한 감사 추적 체계로 확대 해석해서는 안 된다. 기록의 완전성과 정확성, 보존 정책은 실제 도입 환경에서 별도로 검증해야 한다.
 
@@ -114,6 +110,9 @@ Whiteboard의 의미는 또 하나의 AI 코딩 에이전트가 등장했다는 
 ## 출처
 
 - [/dev/fast, Whiteboard 공식 GitHub 저장소 및 README](https://github.com/devdotfast/whiteboard)
+- [/dev/fast, Whiteboard 공식 데모 화면 GIF](https://github.com/devdotfast/whiteboard/blob/main/docs/assets/whiteboard-demo.gif) — MIT License
+- [/dev/fast, Whiteboard 공식 리뷰 결정 패널 화면](https://github.com/devdotfast/whiteboard/blob/main/packages/review/docs/review-actions-redesign/02-decision-panel-resting.png) — MIT License
+- [/dev/fast, Whiteboard LICENSE](https://github.com/devdotfast/whiteboard/blob/main/LICENSE)
 - [GitHub REST API, devdotfast/whiteboard 저장소 현황](https://api.github.com/repos/devdotfast/whiteboard)
 - [Hacker News, Show HN: Whiteboard (YC W26) — An open-source IDE for thoughtful software design](https://news.ycombinator.com/item?id=49833867)
 - [/dev/fast, diffr 공식 GitHub 저장소](https://github.com/devdotfast/diffr)
