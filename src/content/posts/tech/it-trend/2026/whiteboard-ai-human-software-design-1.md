@@ -16,7 +16,7 @@ AI 코딩 도구의 역할은 코드 자동 완성에서 여러 파일을 수정
 
 이 변화에서는 코드 작성보다 구현 결과를 이해하는 과정이 새로운 병목이 될 수 있다. 여러 모듈에 걸친 API, 데이터 모델, 비즈니스 로직 변경을 Git Diff만으로 검토하면, 개발자는 파일 사이의 연결 관계를 다시 머릿속에서 조립해야 한다. AI가 한 번에 만드는 변경 범위가 커질수록 이 부담도 커진다.
 
-이 문제의식에서 등장한 오픈소스가 **Whiteboard**다. /dev/fast가 개발한 Whiteboard는 사람과 AI 코딩 에이전트가 하나의 작업 공간에서 소프트웨어 구조, 구현 내용, 설계 결정을 함께 검토하도록 만든 데스크톱 애플리케이션이다. 핵심은 AI가 코드를 더 많이 쓰도록 하는 데 있지 않다. AI가 수행한 작업을 사람이 구조적으로 이해하고 질문할 수 있는 인터페이스로 다시 표현한다는 데 있다.
+이 문제의식에서 등장한 오픈소스가 **Whiteboard**다. devdotfast가 개발한 Whiteboard는 사람과 AI 코딩 에이전트가 하나의 작업 공간에서 소프트웨어 구조, 구현 내용, 설계 결정을 함께 검토하도록 만든 데스크톱 애플리케이션이다. 핵심은 AI가 코드를 더 많이 쓰도록 하는 데 있지 않다. AI가 수행한 작업을 사람이 구조적으로 이해하고 질문할 수 있는 인터페이스로 다시 표현한다는 데 있다.
 
 ## 최신 AI 코딩 흐름에서의 출발
 
@@ -49,7 +49,7 @@ Whiteboard는 Claude Code나 Codex 같은 기존 에이전트를 대체하는 �
 
 ![Whiteboard에서 코드 설명과 시퀀스 다이어그램을 함께 표시하는 실제 화면](/images/contents/it-trend/whiteboard/whiteboard-demo.gif)
 
-*그림 1. Whiteboard의 실제 화면. 코드 설명과 시퀀스 다이어그램을 함께 표시한다. 출처: /dev/fast Whiteboard 공식 저장소, MIT License.*
+*그림 1. Whiteboard의 실제 화면. 코드 설명과 시퀀스 다이어그램을 함께 표시한다. 출처: devdotfast Whiteboard 공식 저장소, MIT License.*
 
 기술적으로 Whiteboard는 Code OSS를 포함한 데스크톱 환경을 사용한다. 다이어그램 화면을 제공하면서도 VS Code 계열의 키보드 단축키와 Language Server Protocol(LSP) 기반 코드 탐색을 함께 제공하려는 선택이다. 일반적인 다이어그램 도구에서 실제 구현을 확인하려면 별도 IDE로 이동해야 하지만, Whiteboard는 설계 표현과 코드 탐색의 거리를 줄이려 한다.
 
@@ -79,7 +79,7 @@ Whiteboard의 Decision Log는 에이전트가 자신의 작업 기록을 조회�
 
 ![Whiteboard의 실제 리뷰 화면에서 승인·변경 요청·리뷰 종료를 선택하는 패널](/images/contents/it-trend/whiteboard/decision-panel-resting.png)
 
-*그림 2. Whiteboard의 실제 리뷰 결정 패널. 출처: /dev/fast Whiteboard 공식 저장소, MIT License.*
+*그림 2. Whiteboard의 실제 리뷰 결정 패널. 출처: devdotfast Whiteboard 공식 저장소, MIT License.*
 
 장기 운영되는 기업 시스템에서는 결과 코드만큼 설계 판단의 맥락이 중요하다. 성능 제약, 데이터 정합성, 다른 시스템과의 의존 관계를 이해하지 못하면 이후 변경에서 같은 위험이 반복될 수 있다. 다만 현재 기능을 장기 아키텍처 의사결정 관리 시스템이나 완전한 감사 추적 체계로 확대 해석해서는 안 된다. 기록의 완전성과 정확성, 보존 정책은 실제 도입 환경에서 별도로 검증해야 한다.
 
@@ -109,13 +109,13 @@ Whiteboard의 의미는 또 하나의 AI 코딩 에이전트가 등장했다는 
 
 ## 출처
 
-- [/dev/fast, Whiteboard 공식 GitHub 저장소 및 README](https://github.com/devdotfast/whiteboard)
-- [/dev/fast, Whiteboard 공식 데모 화면 GIF](https://github.com/devdotfast/whiteboard/blob/main/docs/assets/whiteboard-demo.gif) — MIT License
-- [/dev/fast, Whiteboard 공식 리뷰 결정 패널 화면](https://github.com/devdotfast/whiteboard/blob/main/packages/review/docs/review-actions-redesign/02-decision-panel-resting.png) — MIT License
-- [/dev/fast, Whiteboard LICENSE](https://github.com/devdotfast/whiteboard/blob/main/LICENSE)
+- [devdotfast, Whiteboard 공식 GitHub 저장소 및 README](https://github.com/devdotfast/whiteboard)
+- [devdotfast, Whiteboard 공식 데모 화면 GIF](https://github.com/devdotfast/whiteboard/blob/main/docs/assets/whiteboard-demo.gif) — MIT License
+- [devdotfast, Whiteboard 공식 리뷰 결정 패널 화면](https://github.com/devdotfast/whiteboard/blob/main/packages/review/docs/review-actions-redesign/02-decision-panel-resting.png) — MIT License
+- [devdotfast, Whiteboard LICENSE](https://github.com/devdotfast/whiteboard/blob/main/LICENSE)
 - [GitHub REST API, devdotfast/whiteboard 저장소 현황](https://api.github.com/repos/devdotfast/whiteboard)
 - [Hacker News, Show HN: Whiteboard (YC W26) — An open-source IDE for thoughtful software design](https://news.ycombinator.com/item?id=49833867)
-- [/dev/fast, diffr 공식 GitHub 저장소](https://github.com/devdotfast/diffr)
+- [devdotfast, diffr 공식 GitHub 저장소](https://github.com/devdotfast/diffr)
 - [Google DORA, State of AI-assisted Software Development 2025](https://dora.dev/research/2025/)
 - [Google DORA, Balancing AI tensions: Moving from AI adoption to effective SDLC use](https://dora.dev/insights/balancing-ai-tensions/)
 - [Stack Overflow, 2025 Developer Survey: AI](https://survey.stackoverflow.co/2025/ai)
