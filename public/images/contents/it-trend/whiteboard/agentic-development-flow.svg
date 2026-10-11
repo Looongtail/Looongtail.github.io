@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">코드 중심 개발과 에이전트 중심 개발의 검토 흐름 비교</title>
+  <desc id="desc">기존 흐름은 요구사항에서 개발자, 코드, Diff, 리뷰로 이어지고, 에이전트 중심 흐름은 의도에서 에이전트, 설계와 코드, 검증 증거, 인간 검토로 이어진다.</desc>
+  <style>
+    .bg { fill: #f8fafc; }
+    .panel { fill: #ffffff; stroke: #d7e0ea; stroke-width: 2; }
+    .title { fill: #17324d; font: 700 25px Arial, sans-serif; }
+    .subtitle { fill: #52677b; font: 400 16px Arial, sans-serif; }
+    .label { fill: #17324d; font: 700 17px Arial, sans-serif; text-anchor: middle; }
+    .small { fill: #52677b; font: 400 14px Arial, sans-serif; text-anchor: middle; }
+    .node-old { fill: #eef2f6; stroke: #aab9c8; stroke-width: 1.5; }
+    .node-new { fill: #e6f2ff; stroke: #4187c9; stroke-width: 1.5; }
+    .evidence { fill: #ecf7ef; stroke: #4d9a68; stroke-width: 1.5; }
+    .arrow { fill: none; stroke: #8093a6; stroke-width: 2.5; stroke-linecap: round; marker-end: url(#arrow); }
+    .arrow-new { fill: none; stroke: #347bbd; stroke-width: 2.5; stroke-linecap: round; marker-end: url(#arrow-new); }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#8093a6"/></marker>
+    <marker id="arrow-new" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#347bbd"/></marker>
+  </defs>
+  <rect class="bg" width="1200" height="560" rx="18"/>
+  <text class="title" x="60" y="62">개발 인터페이스의 이동</text>
+  <text class="subtitle" x="60" y="92">코드를 읽는 순서에서 의도와 검증 증거를 먼저 확인하는 순서로</text>
+
+  <rect class="panel" x="48" y="126" width="1104" height="154" rx="14"/>
+  <text class="title" x="78" y="166" font-size="21">Code-centric Development</text>
+  <text class="subtitle" x="78" y="193">변경된 코드와 Diff에서 검토를 시작</text>
+  <rect class="node-old" x="390" y="157" width="118" height="64" rx="10"/>
+  <text class="label" x="449" y="187">요구사항</text>
+  <rect class="node-old" x="550" y="157" width="118" height="64" rx="10"/>
+  <text class="label" x="609" y="187">개발자</text>
+  <rect class="node-old" x="710" y="157" width="118" height="64" rx="10"/>
+  <text class="label" x="769" y="187">코드</text>
+  <rect class="node-old" x="870" y="157" width="96" height="64" rx="10"/>
+  <text class="label" x="918" y="187">Diff</text>
+  <rect class="node-old" x="1008" y="157" width="96" height="64" rx="10"/>
+  <text class="label" x="1056" y="187">리뷰</text>
+  <path class="arrow" d="M508 189 H544"/><path class="arrow" d="M668 189 H704"/><path class="arrow" d="M828 189 H864"/><path class="arrow" d="M966 189 H1002"/>
+
+  <rect class="panel" x="48" y="312" width="1104" height="198" rx="14"/>
+  <text class="title" x="78" y="352" font-size="21">Agentic Development</text>
+  <text class="subtitle" x="78" y="379">의도·영향·증거를 확인한 뒤 필요한 코드로 이동</text>
+  <rect class="node-new" x="326" y="394" width="126" height="70" rx="10"/>
+  <text class="label" x="389" y="423">의도</text><text class="small" x="389" y="446">제약·계약</text>
+  <rect class="node-new" x="492" y="394" width="126" height="70" rx="10"/>
+  <text class="label" x="555" y="423">에이전트</text><text class="small" x="555" y="446">탐색·구현</text>
+  <rect class="node-new" x="658" y="394" width="148" height="70" rx="10"/>
+  <text class="label" x="732" y="423">설계 · 코드</text><text class="small" x="732" y="446">변경 결과</text>
+  <rect class="evidence" x="846" y="394" width="148" height="70" rx="10"/>
+  <text class="label" x="920" y="423">검증 증거</text><text class="small" x="920" y="446">테스트·분석</text>
+  <rect class="node-new" x="1034" y="394" width="82" height="70" rx="10"/>
+  <text class="label" x="1075" y="423">사람</text><text class="small" x="1075" y="446">판단</text>
+  <path class="arrow-new" d="M452 429 H486"/><path class="arrow-new" d="M618 429 H652"/><path class="arrow-new" d="M806 429 H840"/><path class="arrow-new" d="M994 429 H1028"/>
+</svg>
